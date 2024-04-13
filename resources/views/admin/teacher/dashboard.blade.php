@@ -12,7 +12,8 @@
           <div class="col-sm-12">
             <h1 class="m-0">Dashboard</h1>
           </div><!-- /.col -->
-          
+          <div class="col-sm-6">
+       
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
