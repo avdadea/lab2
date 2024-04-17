@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
+use App\Models\User;
+use App\Mail\ForgotPasswordMail;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -59,6 +62,24 @@ class AuthController extends Controller
         else
         {        
             return redirect()->back()->with('error', 'Please enter correct email and password');
+        }
+    }
+    public function forgotpassword ()
+    {
+        return view('auth.forgot');
+
+    }
+    public function PostForgotPassword(Request $request)
+    {
+        $user = User::getEmailSingle($request->email);
+        if(!empty($user))
+        {
+            $user->remember
+            Mail::to($user->email)->send(new ForgotPasswordMail($user));
+
+        }
+        else{
+            return redirect()->back()->with('error', "Email is not found in the system.");
         }
     }
 
