@@ -1,14 +1,14 @@
 @component('mail::message')
 Hello {{$user->name}},
 
-<p> We understand it happens. </p>
+We understand it happens.
 
-@component('mail::button',['url'=>('reset/'.$user->remember_token)])
-Reset Your Password 
+@component('mail::button', ['url' => url('reset/'.$user->remember_token)])
+Reset Your Password
 @endcomponent
 
-<p>In case you have any issues recovering your password, please contact us. </p>
+In case you have any issues recovering your password, please contact us.
 
-Thanks, <br>
-{{config('app.name')}}
+Thanks,  
+{{ config('app.name') }}
 @endcomponent

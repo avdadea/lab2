@@ -103,7 +103,7 @@ class AuthController extends Controller
 
     public function PostReset($token, Request $request)
     {
-        if($request->password==$request->password)
+        if($request->password==$request->cpassword)
         {
             $user = User::getTokenSingle($token);
             $user->password=Hash::make($request->password);
