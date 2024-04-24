@@ -40,9 +40,11 @@ class AuthController extends Controller
            // dd($request->all());
         $remember = !empty($request->remember) ? true : false;
         
+
+        // Hash the password using Bcrypt before attempting authentication
+
         // Attempt to authenticate the user
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-          
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {          
             if(Auth::user()->user_type== 1)
             {
                 return redirect('admin/dashboard');
