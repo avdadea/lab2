@@ -39,5 +39,17 @@ return self::find($id);
             return $return;
         }
 
+        static public function getClass(){
 
+            $return = ClassModel::select('class.*')
+                    ->join('users', 'users.id', 'class.created_by')
+                     ->where('class.is_delete', '=', 0)
+                     ->where('class.status', '=', 0)
+
+                    ->orderBy('class.name', 'asc')
+                    ->get();
+                    
+            return $return;
+
+        }
 }
