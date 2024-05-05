@@ -37,7 +37,6 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Created By</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
                             </tr>
@@ -55,7 +54,6 @@
                             @endif
 
                             </td>
-                            <td>{{  $value->created_by_name  }}</td>
                             <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
                             <td>
                             <a href="{{ url('admin/student/edit/'.$value->id )}}" class="btn btn-primary">Edit</a>
