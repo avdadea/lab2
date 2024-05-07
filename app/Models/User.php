@@ -104,7 +104,8 @@ class User extends Authenticatable
     } 
     static public function getStudent(){
         
-        $return = self::select('users.*','class.name as class_name')
+        $return = self::select('users.*','class.name as class_name','parent.name as parent_name','parent.last_name as parent_last_name')
+                            ->join('users as parent','parent.id','=','users.parent_id','left')
                             ->join('class', 'class.id','=','users.class_id','left')
                             ->where('users.user_type','=',3)
                             ->where('users.is_delete','=',0);
@@ -136,15 +137,63 @@ class User extends Authenticatable
         
         return $return;                
     } 
-    static public function getEmailSingle($email)
+
+    static public function getSearchStudent()
     {
-        return User::where('email','=',$email)->first();
+        $query = self::select('users.*', 'class.name as class_name', 'parent.name as parent_name')
+            ->join('users as parent','parent.id','=','users.parent_id','left')
+            ->join('class', 'class.id', '=', 'users.class_id', 'left')
+            ->where('users.user_type', '=', 3)
+            ->where('users.is_delete', '=', 0);
+    
+        // Check if search parameters are provided
+        if (!empty(Request::get('id'))) {
+            $query->where('users.id', 'like', '%' . Request::get('id') . '%');
+        }
+    
+        if (!empty(Request::get('name'))) {
+            $query->where('users.name', 'like', '%' . Request::get('name') . '%');
+        }
+    
+        if (!empty(Request::get('last_name'))) {
+            $query->where('users.last_name', 'like', '%' . Request::get('last_name') . '%');
+        }
+    
+        if (!empty(Request::get('email'))) {
+            $query->where('users.email', 'like', '%' . Request::get('email') . '%');
+        }
+    
+        // Order by ID in descending order and limit the results to 50
+        $result = $query->orderBy('users.id', 'desc')
+            ->limit(50)
+            ->get();
+    
+        return $result;
     }
+    
+   public static function getMyStudent($parent_id){
+
+    $return = self::select('users.*', 'class.name as class_name', 'parent.name as parent_name')
+        ->join('users as parent','parent.id','=','users.parent_id','left')
+        ->join('class', 'class.id', '=', 'users.class_id', 'left')
+        ->where('users.user_type', '=', 3)
+        ->where('users.parent_id', '=', $parent_id)
+        ->where('users.is_delete', '=', 0)
+        ->orderBy('users.id', 'desc')
+        ->get();
+
+        return $return;
+        } 
+
+    static public function getEmailSingle($email)
+            {
+                return User::where('email','=',$email)->first();
+            }
 
     static public function getTokenSingle($remember_token)
-    {
-        return User::where('remember_token','=',$remember_token)->first();
-    }
+            {
+                return User::where('remember_token','=',$remember_token)->first();
+            }
 
     public function getProfile()
     {
