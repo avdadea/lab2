@@ -59,7 +59,7 @@ class ClassSubjectModel extends Model
         ->get();
 
       return  $return;
-   
+
    
     }
 
