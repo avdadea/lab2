@@ -17,12 +17,14 @@ class ClassSubjectModel extends Model
 
     }
 
+
     static public function getRecord(){
         $return = self::select('class_subject.*', 'class.name as class_name', 'subject.name as subject.name', 'users.name as created_by_name')
         ->join('subject', 'subject.id', '=', 'class_subject.subject_id')
         ->join('class', 'class.id', '=', 'class_subject.class_id')
         ->join('users', 'users.id', '=', 'class_subject.created_by')
         ->where('class_subject.is_delete', '=', 0);
+       
         if(!empty(Request::get('class_name'))){
             $return =  $return ->where('class.name', 'like', '%'.Request::get('class_name').'%');
 
@@ -44,6 +46,23 @@ class ClassSubjectModel extends Model
 
 
     }
+
+    static function MySubject($class_id) {
+        return self::select('class_subject.*',  'subject.name as subject_name', 'subject.type as subject_type')
+        ->join('subject', 'subject.id', '=', 'class_subject.subject_id')
+        ->join('class', 'class.id', '=', 'class_subject.class_id')
+        ->join('users', 'users.id', '=', 'class_subject.created_by')
+        ->where('class_subject.class_id','=',$class_id)
+        ->where('class_subject.is_delete', '=', 0)
+        ->where('class_subject.status', '=', 0)
+        ->orderBy('class_subject.id', 'desc')
+        ->get();
+
+      return  $return;
+   
+   
+    }
+
 
     static public function getAlreadyFirst($class_id, $subject_id){
         return self::where('class_id', '=', $class_id)->where('subject_id', '=', $subject_id)->first();
