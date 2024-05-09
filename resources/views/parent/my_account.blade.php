@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Edit Parent</h1>
+            <h1>My Account</h1>
           </div>
 
         </div>
@@ -38,23 +38,19 @@
                     <div style="color:red"> {{$errors->first('last_name') }}</div>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label>Admission Number<span style="color : red;">*</span></label>
-                    <input type="text" class="form-control" value="{{ old('admission_number', $getRecord->admission_number) }}" name="admission_number" required placeholder="Admission Number">
-                    <div style="color:red"> {{$errors->first('admission_number') }}</div>
-                </div>
 
                
                 <div class="form-group col-md-6">
                     <label>Gender<span style="color : red;">*</span></label>
                     <select class="form-control" required name="gender"> 
                         <option value="">Select Gender</option>
-                        <option {{ (old('gender', $getRecord->gender) =='Male') ? 'selected' : '' }} value="Male">Male</option>
-                        <option {{ (old('gender', $getRecord->gender) =='Female') ? 'selected' : '' }}value="Female">Female</option>
-                        <option {{ (old('gender', $getRecord->gender) =='Other') ? 'selected' : '' }}value="Other">Other</option>
+                        <option {{ (old('gender',$getRecord->gender) =='Male') ? 'selected' : '' }} value="Male">Male</option>
+                        <option {{ (old('gender',$getRecord->gender) =='Female') ? 'selected' : '' }}value="Female">Female</option>
+                        <option {{ (old('gender',$getRecord->gender) =='Other') ? 'selected' : '' }}value="Other">Other</option>
                     </select>
                     <div style="color:red"> {{$errors->first('gender') }}</div>
                 </div>
+
 
                 <div class="form-group col-md-6">
                     <label>Occupation<span style="color : red;"></span></label>
@@ -87,29 +83,13 @@
 
             
 
-                <div class="form-group col-md-6">
-                    <label>Status<span style="color : red;">*</span></label>
-                    <select class="form-control" required name="status"> 
-                        <option value="">Select Status</option>
-                        <option {{ (old('status',$getRecord->status) ==0) ? 'selected' : '' }} value="0">Active</option>
-                        <option {{ (old('status',$getRecord->status) ==1) ? 'selected' : '' }} value="1">Inactive</option>
-                    </select>
-                    <div style="color:red"> {{$errors->first('status') }}</div>
                 </div>
-
-                </div>
-
                 <div class="form-group">
                     <label>Email<span style="color : red;">*</span></label>
                     <input type="email" class="form-control" value="{{ old('email',$getRecord->email) }}" name="email" required  placeholder="Email">
                   <div style="color:red"> {{$errors->first('email') }}</div>
                   </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password<span style="color : red;"></span></label>
-                    <input type="text" class="form-control" name="password"  placeholder="Password">
-                    <p>Do you want to change your password? If yes, please add a new password!</p>
-                </div>
-                 
+
 
                 </div>
                 <!-- /.card-body -->

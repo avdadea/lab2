@@ -207,4 +207,80 @@ class User extends Authenticatable
         }
         
     }
+
+
+    static public function getTeacher(){
+
+
+                $return = self::select('users.*')
+                ->where('users.user_type', '=', 2)
+                ->where('users.is_delete', '=', 0);
+
+                            if (!empty(Request::get('name'))) {
+                                $return = $return->where('users.name', 'like', '%' . Request::get('name') . '%');
+                            }
+
+                            
+                            if(!empty(Request::get('last_name')))
+                            {
+                                $return= $return->where('users.last_name','like', '%'.Request::get('last_name').'%');
+                            }
+                            
+                            if(!empty(Request::get('email')))
+                            {
+                                $return= $return->where('users.email','like', '%'.Request::get('email').'%');
+                            }
+                            if(!empty(Request::get('gender')))
+                            {
+                                $return= $return->where('users.gender','=', Request::get('gender'));
+                            }
+                            if(!empty(Request::get('mobile_number')))
+                            {
+                                $return= $return->where('users.mobile_number','like', '%'.Request::get('mobile_number').'%');
+                            }
+                            if(!empty(Request::get('martial_status')))
+                            {
+                                $return= $return->where('users.martial_status','like', '%'.Request::get('martial_status').'%');
+                            }
+                            if(!empty(Request::get('address')))
+                            {
+                                $return= $return->where('users.address','like', '%'.Request::get('address').'%');
+                            }
+                                                    
+                            if(!empty(Request::get('admission_date')))
+                            {
+                                $return= $return->where('users.admission_date','=', '%'.Request::get('admission_date'));
+                            }
+                            if(!empty(Request::get('date')))
+                            {
+                                $return= $return->where('users.created_at','like', '%'.Request::get('admission_number'));
+                            }
+                            if(!empty(Request::get('status')))
+                            {
+                                $status=(Request::get('status')==100)? 0:1;
+                                $return= $return->where('users.status','=',$status);
+                            }
+
+         $return = $return->orderBy('users.id', 'desc')
+                          ->paginate(20);
+            
+            return $return;              
+    } 
+
+    static public function getTeacherStudent($teacher_id)
+    {
+        $return = self::select('users.*', 'class.name as class_name')
+            ->join('class', 'class.id', '=', 'users.class_id')
+            ->join('assign_class_teacher', 'assign_class_teacher.class_id', '=', 'class.id')
+            ->where('assign_class_teacher.teacher_id', '=', $teacher_id)
+            ->where('assign_class_teacher.status', '=', 0)
+            ->where('assign_class_teacher.teacher_id', '=', $teacher_id)
+            ->where('users.user_type', '=', 3)
+            ->where('users.is_delete', '=', 0);
+
+        $return = $return->orderBy('users.id', 'desc')
+            ->paginate(20);
+
+        return $return;
+    }
 }
