@@ -85,17 +85,11 @@
                                 <th>Parent Name</th>
                                 <th>Email</th>
                                 <th>Admission Number</th>
-                                <th>Roll Number</th>
                                 <th>Class</th>
                                 <th>Gender</th>
                                 <th>Date of Birth</th>
-                                <th>Caste</th>
-                                <th>Religion</th>
                                 <th>Mobile Number</th>
                                 <th>Admission Date</th>
-                                <th>Blood Group</th>
-                                <th>Height</th>
-                                <th>Weight</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
@@ -117,7 +111,6 @@
                             <td>{{  $value->parent_name  }}  {{  $value->parent_last_name  }}</td>
                             <td>{{  $value->email  }}</td>
                             <td>{{  $value->admission_number  }}</td>
-                            <td>{{  $value->roll_number  }}</td>
                             <td>{{  $value->class_name  }}</td>
                             <td>{{  $value->gender  }}</td>
                             <td>
@@ -125,17 +118,12 @@
                                 {{  date('d-m-Y', strtotime($value->date_of_birth))  }}
                                 @endif
                             </td>
-                            <td>{{  $value->caste  }}</td>
-                            <td>{{  $value->religion  }}</td>
                             <td>{{  $value->mobile_number  }}</td>
                             <td>
                                 @if(!empty($value->admission_date))
                                 {{  date('d-m-Y', strtotime($value->admission_date))  }}
                                 @endif
                            </td>
-                            <td>{{  $value->blood_group  }}</td>
-                            <td>{{  $value->height  }}</td>
-                            <td>{{  $value->weight  }}</td>
                             <td>{{ ($value->status==0) ? 'Active':'Inactive'}}
 
 

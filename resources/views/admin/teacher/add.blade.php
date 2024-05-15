@@ -74,15 +74,6 @@
                     <input type="text" class="form-control" value="{{ old('mobile_number') }}" name="mobile_number" placeholder="Mobile Number">
                     <div style="color:red"> {{$errors->first('mobile_number') }}</div>
                 </div>
-
-                
-                <div class="form-group col-md-6">
-                    <label>Marital Status<span style="color : red;">*</span></label>
-                    <input type="text" class="form-control required" value="{{ old('marital_status') }}" name="marital_status">
-                    <div style="color:red"> {{$errors->first('marital_status') }}</div>
-                </div>
-
-
         
                 <div class="form-group col-md-6">
                     <label>Profile Picture<span style="color : red;"></span></label>
@@ -91,15 +82,9 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label>Current Address<span style="color : red;"></span></label>
+                    <label>Address<span style="color : red;"></span></label>
                     <input type="text" class="form-control" value="{{ old('address') }}" name="address">
                     <div style="color:red"> {{$errors->first('address') }}</div>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label>Permanent Address<span style="color : red;"></span></label>
-                    <input type="text" class="form-control" value="{{ old('permanent_address') }}" name="permanent_address">
-                    <div style="color:red"> {{$errors->first('permanent_address') }}</div>
                 </div>
                
                 <div class="form-group col-md-6">
@@ -113,13 +98,6 @@
                     <input type="text" class="form-control" value="{{ old('work_experience') }}" name="work_experience" required>
                     <div style="color:red"> {{$errors->first('work_experience') }}</div>
                 </div>
-
-                <div class="form-group col-md-6">
-                    <label>Note<span style="color : red;">*</span></label>
-                    <input type="text" class="form-control" value="{{ old('note') }}" name="note" required>
-                    <div style="color:red"> {{$errors->first('note') }}</div>
-                </div>
- 
 
                 <div class="form-group col-md-6">
                     <label>Status<span style="color : red;">*</span></label>

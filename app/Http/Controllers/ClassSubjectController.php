@@ -16,7 +16,7 @@ class ClassSubjectController extends Controller
         $data['getRecord'] = ClassSubjectModel::getRecord();
         $data['header_title'] = "Assign Subject List";
     
-        return view('admin.assing_subject.list', $data);
+        return view('admin.assign_subject.list', $data);
 
     }
 
@@ -26,7 +26,7 @@ class ClassSubjectController extends Controller
         $data['getSubject'] = SubjectModel::getSubject();
 
         $data['header_title'] = "Add Assign Subject";
-        return view('admin.assing_subject.add', $data);
+        return view('admin.assign_subject.add', $data);
 
     }
 
@@ -102,13 +102,9 @@ class ClassSubjectController extends Controller
             }
           
 
-
+           }
         }
-        return redirect('admin/assign_subject/list')->with('success', 'Subject successfully assigned to class');
-
-    }
     return redirect('admin/assign_subject/list')->with('success', 'Subject successfully assigned to class');
-
 
     }
     public function delete($id){
@@ -138,7 +134,7 @@ class ClassSubjectController extends Controller
     }
 
         public function update_single($id, Request $request){
-
+            $subject_id = 123;
         
                 $getAlreadyFirst = ClassSubjectModel::getAlreadyFirst($request->class_id, $request->subject_id);
                 if(!empty($getAlreadyFirst)){

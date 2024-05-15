@@ -58,14 +58,10 @@
                                 <label>Mobile Number</label>
                                 <input type="text" class="form-control" value="{{ Request::get('mobile_number') }}" name="mobile_number" placeholder="mobile_number">
                             </div>
-                            <div class="form-group col-md-2">
-                                <label>Marital Status</label>
-                                <input type="text" class="form-control" value="{{ Request::get('marital_status') }}" name="marital_status" placeholder="Marital Status">
-                            </div>
 
                             <div class="form-group col-md-2">
-                                <label>Current Address</label>
-                                <input type="text" class="form-control" value="{{ Request::get('address') }}" name="address" placeholder="Current Address">
+                                <label>Address</label>
+                                <input type="text" class="form-control" value="{{ Request::get('address') }}" name="address" placeholder="Address">
                             </div>
 
                             
@@ -124,12 +120,9 @@
                                 <th>Date of Birth</th>
                                 <th>Date of Joining</th>
                                 <th>Mobile Number</th>
-                                <th>Marital Status</th>
-                                <th>Current Address</th>
-                                <th>Permanent Address</th>
+                                <th>Address</th>
                                 <th>Qualifications</th>
                                 <th>Work Experience</th>
-                                <th>Note</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
@@ -162,13 +155,10 @@
                                 @endif
                             </td>
                             <td>{{  $value->mobile_number  }}</td>
-                            <td>{{  $value->marital_status  }}</td>
                             <td>{{  $value->address  }}</td>
-                          
-                            <td>{{  $value->permanent_address  }}</td>
                             <td>{{  $value->qualification  }}</td>
                             <td>{{  $value->work_experience  }}</td>
-                            <td>{{  $value->note  }}</td>
+ 
 
                             <td>{{ ($value->status==0) ? 'Active':'Inactive'}}</td>
 
