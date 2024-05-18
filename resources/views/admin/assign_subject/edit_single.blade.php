@@ -27,7 +27,6 @@
                 <div class="form-group">
                     <label>Class Name</label>
                     <select class="form-controller" name="class_id" required>
-                        <option value="">Select Class</option>
 @foreach($getClass as $class)
 <option {{ ($getRecord->class_id == $class->id) ? 'selected' : '' }} value="{{ $class->id }}">{{ $class->name }}</option>
 
@@ -45,7 +44,6 @@
 @endforeach
                     </select>
                 </div> 
-          
 
                 <div class="form-group">
                     <label>Status</label>
@@ -56,8 +54,6 @@
                     </select>
                 </div>
               
-                 
-
                 </div>
                 <!-- /.card-body -->
 

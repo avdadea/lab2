@@ -134,8 +134,8 @@ class ClassSubjectController extends Controller
     }
 
         public function update_single($id, Request $request){
-            $subject_id = 123;
-        
+        $subject_id=123;
+           
                 $getAlreadyFirst = ClassSubjectModel::getAlreadyFirst($request->class_id, $request->subject_id);
                 if(!empty($getAlreadyFirst)){
                     $getAlreadyFirst->status = $request->status;

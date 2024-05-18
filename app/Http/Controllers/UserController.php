@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Hash;
-
+use Str;
 class UserController extends Controller
 {
     public function MyAccount()
@@ -66,10 +66,8 @@ class UserController extends Controller
             $teacher->profile_picture = $filename;
         }
 
-        $teacher->marital_status=trim($request->marital_status);
         $teacher->address=trim($request->address);
         $teacher->mobile_number=trim($request->mobile_number);
-        $teacher->permanent_address=trim($request->permanent_address);
         $teacher->qualification=trim($request->qualification);
         $teacher->work_experience=trim($request->work_experience);
         $teacher->email=trim($request->email);
@@ -85,12 +83,8 @@ class UserController extends Controller
 
         request()->validate([
             'email' => 'required|email|unique:users,email,' .$id,
-            'weight' => 'max:10',
-            'blood_group' => 'max:10',
             'mobile_number' => 'max:15 | min:8',
-            'caste' => 'max:50',
-            'religion' => 'max:50',
-            'height' => 'max:10'
+
 
         ]);
 
@@ -126,9 +120,6 @@ class UserController extends Controller
         {
         $student->admission_date=trim($request->admission_date);
         }
-        $student->blood_group=trim($request->blood_group);
-        $student->height=trim($request->height);
-        $student->weight=trim($request->weight);
         $student->email=trim($request->email);
         $student->save();
 

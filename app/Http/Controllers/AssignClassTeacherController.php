@@ -79,6 +79,7 @@ class AssignClassTeacherController extends Controller
 
     public function update($id, Request $request)
     {
+      
         AssignClassTeacherModel::deleteTeacher($request->class_id);
 
         if(!empty($request->teacher_id)){
@@ -122,8 +123,9 @@ class AssignClassTeacherController extends Controller
 
     }
     public function update_single($id, Request $request){
-        $teacher_id = 123;
-    
+
+      
+        $teacher_id=123;
             $getAlreadyFirst = AssignClassTeacherModel::getAlreadyFirst($request->class_id, $request->teacher_id);
             if(!empty($getAlreadyFirst)){
                 $getAlreadyFirst->status = $request->status;
@@ -151,6 +153,15 @@ class AssignClassTeacherController extends Controller
 
         return redirect()->back()->with('success', 'Assign Class to Teacher Successfully Deleted');
 
+     }
+
+     //teacher side work
+
+     public function MyClassSubject()
+     {
+        $data['getRecord'] = AssignClassTeacherModel::getMyClassSubject(Auth::user()->id);
+        $data['header_title']="My Class & Subject";
+        return view('teacher.my_class_subject', $data);
      }
 
 }

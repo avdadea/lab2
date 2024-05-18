@@ -28,14 +28,8 @@ class StudentController extends Controller
     {
         request()->validate([
             'email' => 'required|email|unique:users',
-            'weight' => 'max:10',
-            'blood_group' => 'max:10',
             'mobile_number' => 'max:15 | min:8',
             'admission_number' => 'max:50',
-            'roll_number' => 'max:50',
-            'caste' => 'max:50',
-            'religion' => 'max:50',
-            'height' => 'max:10'
 
         ]);
 
@@ -44,7 +38,6 @@ class StudentController extends Controller
         $student->name=trim($request->name);
         $student->last_name=trim($request->last_name);
         $student->admission_number=trim($request->admission_number);
-        $student->roll_number=trim($request->roll_number);
         $student->class_id=trim($request->class_id);
         $student->gender=trim($request->gender);
 
@@ -63,8 +56,6 @@ class StudentController extends Controller
             $student->profile_picture = $filename;
         }
 
-        $student->caste=trim($request->caste);
-        $student->religion=trim($request->religion);
         $student->mobile_number=trim($request->mobile_number);
         
         if(!empty($request->admission_date))
@@ -72,9 +63,6 @@ class StudentController extends Controller
         $student->admission_date=trim($request->admission_date);
         }
 
-        $student->blood_group=trim($request->blood_group);
-        $student->height=trim($request->height);
-        $student->weight=trim($request->weight);
         $student->status=trim($request->status);
         $student->email=trim($request->email);
         $student->password=hash::make($request->password);
@@ -102,14 +90,8 @@ class StudentController extends Controller
         
         request()->validate([
             'email' => 'required|email|unique:users,email,' .$id,
-            'weight' => 'max:10',
-            'blood_group' => 'max:10',
             'mobile_number' => 'max:15 | min:8',
             'admission_number' => 'max:50',
-            'roll_number' => 'max:50',
-            'caste' => 'max:50',
-            'religion' => 'max:50',
-            'height' => 'max:10'
 
         ]);
 
@@ -118,7 +100,6 @@ class StudentController extends Controller
         $student->name=trim($request->name);
         $student->last_name=trim($request->last_name);
         $student->admission_number=trim($request->admission_number);
-        $student->roll_number=trim($request->roll_number);
         $student->class_id=trim($request->class_id);
         $student->gender=trim($request->gender);
 
@@ -140,9 +121,6 @@ class StudentController extends Controller
             $file->move('upload/profile/', $filename);
             $student->profile_picture = $filename;
         }
-
-        $student->caste=trim($request->caste);
-        $student->religion=trim($request->religion);
         $student->mobile_number=trim($request->mobile_number);
         
         if(!empty($request->admission_date))
@@ -150,9 +128,6 @@ class StudentController extends Controller
         $student->admission_date=trim($request->admission_date);
         }
 
-        $student->blood_group=trim($request->blood_group);
-        $student->height=trim($request->height);
-        $student->weight=trim($request->weight);
         $student->status=trim($request->status);
         $student->email=trim($request->email);
 
@@ -179,5 +154,13 @@ class StudentController extends Controller
         else{
             abort(404);
         }
+    }
+
+    public function MyStudent()
+    {
+        $data['getRecord']=User::getTeacherStudent(Auth::user()->id);
+        $data['header_title']="My Student List";
+        return view('teacher.my_student',$data);
+
     }
 }

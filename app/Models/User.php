@@ -238,10 +238,6 @@ static     public function getTeacher(){
                             {
                                 $return= $return->where('users.mobile_number','like', '%'.Request::get('mobile_number').'%');
                             }
-                            if(!empty(Request::get('martial_status')))
-                            {
-                                $return= $return->where('users.martial_status','like', '%'.Request::get('martial_status').'%');
-                            }
                             if(!empty(Request::get('address')))
                             {
                                 $return= $return->where('users.address','like', '%'.Request::get('address').'%');
@@ -267,6 +263,25 @@ static     public function getTeacher(){
             return $return;              
     } 
 
+        static public function getTeacherStudent($teacher_id){
+        
+            $return = self::select('users.*','class.name as class_name')
+                                ->join('class', 'class.id','=','users.class_id')
+                                ->join('assign_class_teacher', 'assign_class_teacher.class_id','=','class.id')
+                                ->where('assign_class_teacher.teacher_id','=',$teacher_id)
+                                ->where('assign_class_teacher.status','=',0)
+                                ->where('assign_class_teacher.is_delete','=',0)
+                                ->where('users.user_type','=',3)
+                                ->where('users.is_delete','=',0);
+    
+                $return= $return->orderBy('users.id','desc')
+                                ->groupBy('users.id')
+                                ->paginate(20);
+            
+            return $return;                
+        
+    }
+
     static     public function getTeacherClass(){
 
 
@@ -279,7 +294,7 @@ static     public function getTeacher(){
     return $return;              
 } 
 
-    static public function getTeacherStudent($teacher_id)
+  /*  static public function getTeacherStudent($teacher_id)
     {
         $return = self::select('users.*', 'class.name as class_name')
             ->join('class', 'class.id', '=', 'users.class_id')
@@ -295,4 +310,5 @@ static     public function getTeacher(){
 
         return $return;
     }
+    */
 }

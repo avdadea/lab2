@@ -26,8 +26,7 @@
                 <div class="card-body">
                 <div class="form-group">
                     <label>Class Name</label>
-                    <select class="form-controller" name="teacher_id" required>
-                        <option value="">Select Class</option>
+                    <select class="form-control" name="class_id" required>
                         @foreach($getClass as $class)
 <option {{ ($getRecord->claass_id==$class->id) ? 'selected':''}} value="{{ $class->id }}">{{$class->name}}</option>
 
@@ -37,7 +36,7 @@
 
                 <div class="form-group">
                     <label>Teacher Name</label>
-                    <select class="form-controller" name="class_id" required>
+                    <select class="form-controller" name="teacher_id" required>
                         <option value="">Select Teacher</option>
 @foreach($getTeacher as $teacher)
 <option {{ ($getRecord->teacher_id==$teacher->id) ? 'selected':''}} value="{{ $teacher->id }}">{{ $teacher->name }}{{$teacher->last_name}}</option>
@@ -46,14 +45,17 @@
                     </select>
                 </div>
 
+                
                 <div class="form-group">
                     <label>Status</label>
                     <select class="form-controller" name="status">
-                        <option {{ ($getRecord->status==0) ? 'selected':''}} value="0">Active</option>
-                        <option {{ ($getRecord->status==1) ? 'selected':''}} value="1">Inactive</option>
+                        <option value="0">Active</option>
+                        <option value="1">Inactive</option>
 
                     </select>
                 </div>
+              
+
               
                  
 

@@ -31,7 +31,6 @@ class TeacherController extends Controller
     {
         request()->validate([
             'email' => 'required|email|unique:users',
-            'marital_status' => 'max:50',
         ]);
 
 
@@ -62,13 +61,10 @@ class TeacherController extends Controller
             $teacher->profile_picture = $filename;
         }
 
-        $teacher->marital_status=trim($request->marital_status);
         $teacher->address=trim($request->address);
         $teacher->mobile_number=trim($request->mobile_number);
-        $teacher->permanent_address=trim($request->permanent_address);
         $teacher->qualification=trim($request->qualification);
         $teacher->work_experience=trim($request->work_experience);
-        $teacher->note=trim($request->note);
         $teacher->status=trim($request->status);
         $teacher->email=trim($request->email);
         $teacher->password=hash::make($request->password);
@@ -98,7 +94,6 @@ class TeacherController extends Controller
         request()->validate([
             'email' => 'required|email|unique:users,email,' .$id,
             'mobile_number' => 'max:15 | min:8',
-            'marital_status' => 'max:50',
 
         ]);
 
@@ -124,13 +119,10 @@ class TeacherController extends Controller
             $teacher->profile_picture = $filename;
         }
 
-        $teacher->marital_status=trim($request->marital_status);
         $teacher->address=trim($request->address);
         $teacher->mobile_number=trim($request->mobile_number);
-        $teacher->permanent_address=trim($request->permanent_address);
         $teacher->qualification=trim($request->qualification);
         $teacher->work_experience=trim($request->work_experience);
-        $teacher->note=trim($request->note);
         $teacher->status=trim($request->status);
         $teacher->email=trim($request->email);
 
