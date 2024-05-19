@@ -126,7 +126,7 @@ class ClassSubjectController extends Controller
         $data['getSubject'] = SubjectModel::getSubject();
 
         $data['header_title'] = "Edit Assign Subject";
-        return view('admin.assing_subject.edit_sinlge', $data);
+        return view('admin.assing_subject.edit_single', $data);
         }
         else{
             abort(404);
