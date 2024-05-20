@@ -58,8 +58,6 @@ class ClassSubjectModel extends Model
         ->orderBy('class_subject.id', 'desc')
         ->get();
 
-      return  $return;
-
    
     }
 

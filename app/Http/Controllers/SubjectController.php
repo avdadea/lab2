@@ -64,15 +64,15 @@ public function edit($id){
         }
 
 
-       // public function delete($id){
+        public function delete($id){
             
-         //   $save = SubjectModel::getSingle($id);
-          //  $save->is_delete = 1;
-           // $save->save();
+           $save = SubjectModel::getSingle($id);
+            $save->is_delete = 1;
+            $save->save();
 
-           // return redirect()->back()->with('success', "Subject successfully Deleted");
+            return redirect()->back()->with('success', "Subject successfully Deleted");
 
-        //}
+        }
 
 
         public function MySubject()
