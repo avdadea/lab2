@@ -14,6 +14,8 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AssignClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
+use App\Http\Controllers\ExaminationsController;
+
 
 
 
@@ -131,24 +133,23 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
 
 
 });
+  
+//examination
 
-// Route::group(['middleware' => 'teacher'], function (){
-//     Route::get('teacher/dashboard', function () {
-//         return view('admin.dashboard');
-//     });
-// });
+    Route::get('admin/examinations/exam/list', [ExaminationsController::class, 'exam_list']);
+    Route::get('admin/examinations/exam/add', [ExaminationsController::class, 'exam_add']);
+    Route::post('admin/examinations/exam/add', [ExaminationsController::class, 'exam_insert']);
+    Route::get('admin/examinations/exam/edit/{id}', [ExaminationsController::class, 'exam_edit']);
+    Route::post('admin/examinations/exam/edit/{id}', [ExaminationsController::class, 'exam_update']);
+    Route::get('admin/examinations/exam/delete/{id}', [ExaminationsController::class, 'exam_delete']);
+   
+   
+    Route::get('admin/examinations/exam_schedule', [ExaminationsController::class, 'exam_schedule']);
+    Route::post('admin/examinations/exam_schedule_insert', [ExaminationsController::class, 'exam_schedule_insert']);
 
-// Route::group(['middleware' => 'student'], function (){
-//     Route::get('student/dashboard', function () {
-//         return view('admin.dashboard');
-//     });
-// });
 
-// Route::group(['middleware' => 'parent'], function (){
-//     Route::get('parent/dashboard', function () {
-//         return view('admin.dashboard');
-//     });
-// });
+    //teacher middleware
+
 Route::group(['middleware' => TeacherMiddleware::class], function () {
     Route::get('teacher/dashboard', [DashboardController::class, 'dashboard']);
 
