@@ -106,6 +106,8 @@ class ClassTimetableController extends Controller
 
     public function MyTimetable()
     {
+
+        $result = [];
         $request=array();
         $getRecord=ClassSubjectModel::MySubject(Auth::user()->class_id);
         
@@ -150,6 +152,7 @@ class ClassTimetableController extends Controller
 
     public function MyTimetableTeacher($class_id, $subject_id)
     {
+        $result = [];
             $data['getClass']=ClassModel::getSingle($class_id);
             $data['getSubject']=SubjectModel::getSingle($subject_id);
 
@@ -193,6 +196,8 @@ class ClassTimetableController extends Controller
 
      public function MyTimetableParent($class_id, $subject_id,$student_id)
      {
+
+        $result = [];
                 $data['getClass']=ClassModel::getSingle($class_id);
                 $data['getSubject']=SubjectModel::getSingle($subject_id);
                 $data['getStudent']=User::getSingle($student_id);
@@ -217,6 +222,7 @@ class ClassTimetableController extends Controller
                     }
                     else
                     {
+
                         $dataW['start_time']='';
                         $dataW['end_time']='';
                         $dataW['room_number']='';
@@ -232,4 +238,3 @@ class ClassTimetableController extends Controller
       
         }
 }
-

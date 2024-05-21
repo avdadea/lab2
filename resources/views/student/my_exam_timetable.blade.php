@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>My Timetable</h1>
+                    <h1>My Exam Timetable</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -31,21 +31,30 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Week</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Room Number</th>
+                            <th>Subject Name</th>
+                                    <th>Exam Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Room Number</th>
+                                    <th>Full Marks</th>
+                                    <th>Passing Mark</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($value['week'] as $valueW)
-                        <tr> 
-                            <td>{{ $valueW['week_name'] }}</td>
-                            <td>{{ !empty($valueW['start_time']) ? date('h:i A', strtotime($valueW['start_time'])) : '' }}</td>
-                            <td>{{ !empty($valueW['end_time']) ? date('h:i A', strtotime($valueW['end_time'])) : '' }}</td>
-                            <td>{{ $valueW['room_number'] }}</td>
+                        @foreach($value['exam'] as $valueS)
+                        <tr>
+                            <td>{{ $valueS['subject_name'] }}</td>
+                            <td>{{ date('l', strtotime ($valueS['exam_date'])) }}</td>
+                            <td>{{ date('d-m-Y', strtotime ($valueS['exam_date'])) }}</td>
+                            <td>{{ date('h:i A', strtotime ($valueS['start_time'])) }}</td>
+                            <td>{{ date('h:i A', strtotime ($valueS['end_time'])) }}</td>
+                            <td>{{ $valueS['room_number'] }}</td>
+                            <td>{{ $valueS['full_marks'] }}</td>
+                            <td>{{ $valueS['passing_mark'] }}</td>
+                           
 
                         </tr>
+                        
                         @endforeach
                     </tbody>
                     </table>
@@ -57,24 +66,4 @@
 
 @endsection
 
-@section('script')
 
-<script type="text/javascript">
-    $('.getClass').change(function() {
-        var class_id = $(this).val();
-        $.ajax({
-            url: "{{ url('admin/class_timetable/get_subject') }}",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                class_id: class_id,
-            },
-            dataType: "json",
-            success: function(response) {
-                $('.getSubject').html(response.html);
-            },
-        });
-    });
-</script>
-
-@endsection

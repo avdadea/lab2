@@ -164,4 +164,41 @@ class ExaminationsController extends Controller
     return redirect()->back()->with('success', "Exam Schedule successfully saved");
 }
 
+
+// student side
+    public function MyExamTimetable(Request $request){
+        
+
+        $class_id = Auth::user()->class_id;
+        $getExam = ExamScheduleModel::getExam($class_id);
+        $result = array();
+        foreach($getExam as $value){
+            $dataE = array();
+            $dataE['name'] = $value->exam_name;
+            $getExamTimetable = ExamScheduleModel::getExamTimetable($value->exam_id, $class_id);
+            $resultS = array();
+          foreach($getExamTimetable as $valueS){
+            $dataS = array();
+            $dataS['subject_name'] = $value->subject_name;
+            $dataS['exam_date'] = $value->exam_date;
+            $dataS['start_time'] = $value->start_time;
+            $dataS['end_time'] = $value->end_time;
+            $dataS['room_number'] = $value->room_number;
+            $dataS['full_marks'] = $value->full_marks;
+            $dataS['passing_mark'] = $value->passing_mark;
+        
+            $resultS[] = $dataS;
+
+          }
+
+          $dataE['exam'] = $resultS;
+          $result[] = $dataE;
+
+        }
+        $data['getRecord'] = $result;
+        $data['header_title']="My Exam Timetable";
+        return view('student.my_exam_timetable',$data);
+
+    }
+
 }
