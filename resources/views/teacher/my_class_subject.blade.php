@@ -9,7 +9,6 @@
                 <div class="col-sm-6">
                     <h1>My Class & Subject</h1>
                 </div>
-
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -18,7 +17,6 @@
         <!-- left column -->
         <div class="col-md-12">
             <!-- general form elements -->
-           
 
             <!-- Admin List -->
             <div class="card">
@@ -36,41 +34,33 @@
                                 <th>My Class Timetable </th>                           
                                 <th>Created Date</th>
                                 <th>Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($getRecord as $value)
-                           <tr>
-                            <td>{{  $value->class_name  }}</td>
-                            <td>{{ $value->subject_name}}</td>
-                            <td>{{ $value->subject_type}}</td>
-                            <td>
-                            @php
-                            $ClassSubject= $value->getMyTimeTable($value->class_id, $value->subject_id);
-                            @endphp
-                            @if(!empty($ClassSubject))
-                            {{ date('h:i A', strtotime($ClassSubject->start_time)) }} to
-                            {{ date('h:i A', strtotime($ClassSubject->end_time)) }}
-                            
-                            <br />
-                            Room number: {{$ClassSubject->room_number}}
-                            @endif
-                            </td>
-
-                            <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
-                            <td>
-                                <a href="{{ url('teacher/my_class_subject/class_timetable/'.$value->class_id.'/'. $value->subject_id) }}" class="btn btn-primary">My Class Timetable</a>
-                            </td>
-
-                           </tr>
-                           @endforeach
-            
-            
+                            <tr>
+                                <td>{{ $value->class_name }}</td>
+                                <td>{{ $value->subject_name }}</td>
+                                <td>{{ $value->subject_type }}</td>
+                                <td>
+                                    @php
+                                    $ClassSubject = $value->getMyTimeTable($value->class_id, $value->subject_id);
+                                    @endphp
+                                    @if(!empty($ClassSubject))
+                                        {{ date('h:i A', strtotime($ClassSubject->start_time)) }} to
+                                        {{ date('h:i A', strtotime($ClassSubject->end_time)) }}
+                                        <br />
+                                        Room number: {{ $ClassSubject->room_number }}
+                                    @endif
+                                </td>
+                                <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
+                                <td>
+                                    <a href="{{ url('teacher/my_class_subject/class_timetable/'.$value->class_id.'/'. $value->subject_id) }}" class="btn btn-primary">My Class Timetable</a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
-                 
-                    </div>
                 </div><!-- /.card-body -->
             </div><!-- /.card -->
         </div><!-- /.col -->
