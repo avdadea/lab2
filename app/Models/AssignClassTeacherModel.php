@@ -82,4 +82,11 @@ static public function getAssignTeacherID($class_id){
       return self::where('class_id', '=', $class_id)->delete();
  }
 
+
+ static public function getMyTimeTable($class_id, $subject_id){
+
+    $getWeek=WeekModel::getWeekUsingName(date('l'));
+   return $ClassSubject= ClassSubjectTimetableModel::getRecordClassSubject($class_id,$subject_id,$getWeek->id);
+
+ }
 }
