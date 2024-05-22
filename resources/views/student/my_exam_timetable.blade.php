@@ -32,6 +32,8 @@
                         <thead>
                             <tr>
                             <th>Subject Name</th>
+                            <th>Exam Day</th>
+
                                     <th>Exam Date</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
@@ -63,7 +65,7 @@
             @endforeach
     </div><!-- /.row -->
 </div><!-- /.content-wrapper -->
-
+</div>
 @endsection
 
 

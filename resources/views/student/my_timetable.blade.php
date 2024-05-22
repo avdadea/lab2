@@ -54,7 +54,7 @@
             @endforeach
     </div><!-- /.row -->
 </div><!-- /.content-wrapper -->
-
+</div>
 @endsection
 
 @section('script')

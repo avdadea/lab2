@@ -11,6 +11,7 @@ class ExamScheduleModel extends Model
 
     protected $table='exam_schedule';
 
+
     static public function getRecordSingle($exam_id,$class_id,$subject_id)
     {
         return ExamScheduleModel::where('exam_id','=', $exam_id)
@@ -34,7 +35,7 @@ class ExamScheduleModel extends Model
         return ExamScheduleModel::select('exam_schedule.*','exam.name as exam_name')
         ->join('exam','exam.id','=','exam_schedule.exam_id')
         ->where('exam_schedule.class_id','=',$class_id)
-        ->groupBy('exam_id')
+        ->groupBy('exam_schedule.exam_id')
         ->orderBy('exam_schedule.id','desc')
         ->get();
 
@@ -42,9 +43,9 @@ class ExamScheduleModel extends Model
 
     static public function getExamTimetable($exam_id, $class_id){
         return ExamScheduleModel::select('exam_schedule.*', 'subject.name as subject_name', 'subject.type as subject_type')
-        ->join('subject', 'subject.id','=','exam_schedule.subject.id')
-        ->where('exam_schedule.class_id','=',$class_id)
+        ->join('subject', 'subject.id','=','exam_schedule.subject_id')
         ->where('exam_schedule.exam_id','=',$exam_id)
+        ->where('exam_schedule.class_id','=',$class_id)
         ->get();
 
     }

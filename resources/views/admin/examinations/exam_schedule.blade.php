@@ -81,7 +81,7 @@
                             </thead>
                             <tbody>
                                 @php
-                                $i = 0;
+                                $i = 1;
                                 @endphp
                                 @foreach ($getRecord as $value)
                                 <tr>
@@ -104,7 +104,7 @@
                                         <input type="text" class="form-control" value="{{ $value['full_marks'] }}" name="schedule[{{ $i }}][full_marks]" required>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control" value="{{ $value['passing_mark'] }}" name="schedule[{{ $i }}][passing_marks]" required>
+                                        <input type="text" class="form-control" value="{{ $value['passing_mark'] }}" name="schedule[{{ $i }}][passing_mark]" required>
                                     </td>
                                 </tr>
                                 @php
