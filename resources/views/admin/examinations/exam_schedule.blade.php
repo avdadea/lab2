@@ -70,7 +70,7 @@
                             <thead>
                                 <tr>
                                     <th>Subject Name</th>
-                                    <th>Date</th>
+                                    <th>Exam Date</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
                                     <th>Room Number</th>
@@ -89,8 +89,9 @@
                                         <input type="hidden" class="form-control" value="{{ $value['subject_id'] }}" name="schedule[{{ $i }}][subject_id]">
                                     </td>
                                     <td>
-                                        <input type="date" class="form-control" value="{{ $value['exam_date'] }}" name="schedule[{{ $i }}][exam_date]" required>
-                                    </td>
+    <input type="date" class="form-control" value="{{ \Carbon\Carbon::parse($value['exam_date'])->format('Y-m-d') }}" name="schedule[{{ $i }}][exam_date]" required>
+</td>
+
                                     <td>
                                         <input type="time" class="form-control" value="{{ $value['start_time'] }}" name="schedule[{{ $i }}][start_time]" required>
                                     </td>
