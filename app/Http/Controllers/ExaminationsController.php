@@ -221,6 +221,37 @@ class ExaminationsController extends Controller
             echo json_encode($json);
       }
 
+public function single_submit_marks_register(Request $request)
+    {
+        $class_work = !empty($request->class_work) ? $request->class_work : 0;
+        $home_work = !empty($request->home_work) ? $request->home_work : 0;
+        $exam = !empty($request->exam) ? $request->exam : 0;
+
+        $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id, $request->exam_id, $request->class_id, $request->subject_id);
+        if(!empty($getMark)){
+            $save = $getMark;
+        }else
+        {
+            $save = new MarksRegisterModel;
+            $save->created_by = Auth::user()->id;
+
+
+        }
+        $save->student_id = $request->student_id;
+        $save->exam_id = $request->exam_id;
+        $save->class_id = $request->class_id;
+        $save->subject_id = $request->subject_id;
+        $save->class_work = $class_work;
+        $save->home_work = $home_work;
+        $save->exam = $exam;
+        $save->created_by = Auth::user()->id;
+        $save->save();
+        
+    
+    $json['message'] = "Mark Register successfully saved";
+    echo json_encode($json);
+
+    }
 // student side
 public function MyExamTimetable(Request $request)
 {
