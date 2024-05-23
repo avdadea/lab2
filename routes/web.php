@@ -170,6 +170,11 @@ Route::group(['middleware' => TeacherMiddleware::class], function () {
 
     Route::get('teacher/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetableTeacher']);
 
+
+    Route::get('teacher/marks_register', [ExaminationsController::class, 'marks_register_teacher']);
+    Route::post('teacher/submit_marks_register', [ExaminationsController::class, 'submit_marks_register']);
+    Route::post('teacher/single_submit_marks_register', [ExaminationsController::class, 'single_submit_marks_register']);
+
 });
 
 Route::group(['middleware' => StudentMiddleware::class], function () {
