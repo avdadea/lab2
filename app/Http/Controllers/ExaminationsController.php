@@ -204,106 +204,100 @@ class ExaminationsController extends Controller
 
         
     }
-      public function submit_marks_register(Request $request){
-
-            $validation=0;
-            if(!empty($request->mark)){
-                foreach ($request->mark as $mark){
-
-                    $getExamSchedule=ExamScheduleModel::getSingle($mark['id']);
-                    $full_marks=$getExamSchedule->full_marks;
-
-
-                    $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0;
-                    $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
-                    $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
-
-                    $total_mark=$class_work + $home_work+ $exam;
-                if($full_marks>= $total_mark){
-
+    public function submit_marks_register(Request $request)
+    {
+        $validation = 0;
+    
+        if (!empty($request->mark)) {
+            foreach ($request->mark as $mark) {
+                $getExamSchedule = ExamScheduleModel::getSingle($mark['id']);
+                $full_marks = $getExamSchedule->full_marks;
+                $passing_mark = $getExamSchedule->passing_mark; // Add passing_mark here if it is defined in getSingle method
+    
+                $class_work = $mark['class_work'] ?? 0;
+                $home_work = $mark['home_work'] ?? 0;
+                $exam = $mark['exam'] ?? 0;
+                
+                $total_mark = $class_work + $home_work + $exam;
+    
+                if ($full_marks >= $total_mark) {
                     $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id, $request->exam_id, $request->class_id, $mark['subject_id']);
-                    if(!empty($getMark)){
+    
+                    if (!empty($getMark)) {
                         $save = $getMark;
-                    }else
-                    {
+                    } else {
                         $save = new MarksRegisterModel;
                         $save->created_by = Auth::user()->id;
-
-
-                      }
+                    }
+    
                     $save->student_id = $request->student_id;
                     $save->exam_id = $request->exam_id;
                     $save->class_id = $request->class_id;
                     $save->subject_id = $mark['subject_id'];
                     $save->class_work = $class_work;
                     $save->home_work = $home_work;
+                    $save->full_marks = $full_marks;
+                    $save->passing_mark = $passing_mark;
                     $save->exam = $exam;
-                    $save->created_by = Auth::user()->id;
                     $save->save();
-                }       
-                else
-                {
-                    $validation=1;    
+                } else {
+                    $validation = 1;
                 }
             }
-            }
-            if($validation=0){
+        }
+    
+        if ($validation == 0) {
             $json['message'] = "Mark Register successfully saved";
-            }
-            else{
-                $json['message'] = "Mark Register successfully saved!
-ALERT: Some subject's total mark is greater than the full mark!";
+        } else {
+            $json['message'] = "Mark Register successfully saved! ALERT: Some subject's total mark is greater than the full mark!";
+        }
+    
+        return response()->json($json);
+    }
+    
+
+    public function single_submit_marks_register(Request $request)
+    {
+        $id = $request->id;
+        $getExamSchedule = ExamScheduleModel::getSingle($id);
+    
+        $full_marks = $getExamSchedule->full_marks;
+    
+        $class_work = $request->class_work ?? 0;
+        $home_work = $request->home_work ?? 0;
+        $exam = $request->exam ?? 0;
+    
+        $total_mark = $class_work + $home_work + $exam;
+    
+        if ($full_marks >= $total_mark) {
+            $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id, $request->exam_id, $request->class_id, $request->subject_id);
+    
+            if (!empty($getMark)) {
+                $save = $getMark;
+            } else {
+                $save = new MarksRegisterModel;
+                $save->created_by = Auth::user()->id;
             }
     
-            echo json_encode($json);
-      }
-
-public function single_submit_marks_register(Request $request)
-    {
-            $id =$request->id;
-            $getExamSchedule=ExamScheduleModel::getSingle($id);
-
-            $full_marks=$getExamSchedule->full_marks;
-
-            $class_work = !empty($request->class_work) ? $request->class_work : 0;
-            $home_work = !empty($request->home_work) ? $request->home_work : 0;
-            $exam = !empty($request->exam) ? $request->exam : 0;
-
-            $total_mark=$class_work + $home_work+ $exam;
-            
-        if($full_marks>= $total_mark){
-
-            $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id, $request->exam_id, $request->class_id, $request->subject_id);
-                if(!empty($getMark)){
-                    $save = $getMark;
-                }else
-                {
-                    $save = new MarksRegisterModel;
-                    $save->created_by = Auth::user()->id;
-        
-        
-                }
-                $save->student_id = $request->student_id;
-                $save->exam_id = $request->exam_id;
-                $save->class_id = $request->class_id;
-                $save->subject_id = $request->subject_id;
-                $save->class_work = $class_work;
-                $save->home_work = $home_work;
-                $save->exam = $exam;
-                $save->created_by = Auth::user()->id;
-                $save->save();
-                
-                $json['message'] = "Mark Register successfully saved";
-
-        
-        }else{
+            $save->student_id = $request->student_id;
+            $save->exam_id = $request->exam_id;
+            $save->class_id = $request->class_id;
+            $save->subject_id = $request->subject_id;
+            $save->class_work = $class_work;
+            $save->home_work = $home_work;
+            $save->exam = $exam;
+            $save->full_marks = $full_marks;
+            $save->passing_mark = $getExamSchedule->passing_mark;
+            $save->save();
+    
+            $json['message'] = "Mark Register successfully saved";
+        } else {
             $json['message'] = "Check your total mark again!";
-
         }
-        echo json_encode($json);
-
-
- }
+    
+        return response()->json($json);
+    }
+    
 // student side
 public function MyExamTimetable(Request $request)
 {
@@ -339,6 +333,40 @@ public function MyExamTimetable(Request $request)
     return view('student.my_exam_timetable', $data);
 }
 
+public function myExamResult()
+{
+    $result = array();
+    $getExam = MarksRegisterModel::getExam(Auth::user()->id);
+
+    foreach ($getExam as $value) {
+
+        $dataE = array();
+        $dataE['exam_name'] = $value->exam_name;
+        $getExamSubject = MarksRegisterModel::getExamSubject($value->exam_id, Auth::user()->id);
+
+        $dataSubject = array();
+        foreach ($getExamSubject as $exam) {
+
+            $total_score=$exam['class_work']+ $exam['home_work']+ $exam['exam'];
+            $dataS = array();
+            $dataS['subject_name'] = $exam->subject_name;
+            $dataS['class_work'] = $exam->class_work;
+            $dataS['home_work'] = $exam->home_work;
+            $dataS['exam'] = $exam->exam;
+            $dataS['total_score'] = $total_score;
+            $dataS['full_marks'] = $exam->full_marks;
+            $dataS['passing_mark'] = $exam->passing_mark;
+            $dataSubject[] = $dataS;
+        }
+
+        $dataE['subject'] = $dataSubject;
+        $result[] = $dataE;
+    }
+
+    $data['getRecord'] = $result;
+    $data['header_title'] = "My Exam Result";
+    return view('student.my_exam_result', $data);    
+}
 
     //teacher side work
 
@@ -426,5 +454,10 @@ public function MyExamTimetable(Request $request)
         $data['header_title'] = "Exam Timetable";
         return view('parent.my_exam_timetable', $data);
         }
+
+
+        
+
+        
 
 }

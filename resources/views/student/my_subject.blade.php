@@ -19,6 +19,7 @@
         <div class="col-md-12">
             <!-- general form elements -->
 
+            @include('message')
             <!-- Admin List -->
             <div class="card">
                 <div class="card-header">
