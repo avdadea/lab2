@@ -148,6 +148,8 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
     Route::post('admin/examinations/exam_schedule_insert', [ExaminationsController::class, 'exam_schedule_insert']);
 
     Route::get('admin/examinations/marks_register', [ExaminationsController::class, 'marks_register']);
+    Route::post('admin/examinations/submit_marks_register', [ExaminationsController::class, 'submit_marks_register']);
+
 
     //teacher middleware
 
