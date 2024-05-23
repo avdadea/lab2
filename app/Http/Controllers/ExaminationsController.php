@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MarksGradeModel;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\ExamModel;
@@ -11,6 +12,7 @@ use App\Models\ExamScheduleModel;
 use App\Models\MarksRegisterModel;
 use App\Models\AssignClassTeacherModel;
 use App\Models\User;
+
 
 
 class ExaminationsController extends Controller
@@ -297,6 +299,70 @@ class ExaminationsController extends Controller
     
         return response()->json($json);
     }
+
+    public function marks_grade()
+    {
+        $data['getRecord'] = MarksGradeModel::getRecord();
+
+
+        $data['header_title']="Marks Grades";
+        return view('admin.examinations.marks_grade.list',$data);
+
+    }
+
+    public function marks_grade_add()
+    {
+
+        $data['header_title']="Add New Marks Grades";
+        return view('admin.examinations.marks_grade.add',$data);
+
+    }
+
+    public function marks_grade_insert(Request $request)
+    {
+        $mark = new MarksGradeModel;
+        $mark->name=trim($request->name);
+        $mark->percent_from=trim($request->percent_from);
+        $mark->percent_to=trim($request->percent_to);
+        $mark->created_by=Auth::user()->id;
+        $mark->save();
+
+        
+        return redirect('admin/examinations/marks_grade')->with('success', "Marks Grade successfully added"); 
+
+    }
+
+    public function marks_grade_edit($id)
+    {
+
+         $data['getRecord']=MarksGradeModel::getSingle($id);
+         $data['header_title']="Edit Marks Grades";
+         return view('admin.examinations.marks_grade.edit',$data);
+ 
+    }
+
+    public function marks_grade_update($id, Request $request)
+    {
+        $mark = MarksGradeModel::getSingle($id);
+        $mark->name=trim($request->name);
+        $mark->percent_from=trim($request->percent_from);
+        $mark->percent_to=trim($request->percent_to);
+        $mark->save();
+
+        
+        return redirect('admin/examinations/marks_grade')->with('success', "Marks Grade successfully updated"); 
+
+    }
+
+     public function marks_grade_delete($id)
+     {
+        $mark = MarksGradeModel::getSingle($id);
+        $mark->delete();
+
+        return redirect('admin/examinations/marks_grade')->with('success', "Marks Grade successfully deleted"); 
+
+     }
+
     
 // student side
 public function MyExamTimetable(Request $request)
