@@ -195,8 +195,6 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     
     Route::get('student/my_exam_result', [ExaminationsController::class, 'myExamResult']);
   
-//    Route::post('teacher/submit_marks_register', [ExaminationsController::class, 'submit_marks_register']);
-  //  Route::post('teacher/single_submit_marks_register', [ExaminationsController::class, 'single_submit_marks_register']);
 
     
    
@@ -215,8 +213,12 @@ Route::group(['middleware' => ParentMiddleware::class], function () {
     Route::get('parent/my_student/subject/{student_id}', [SubjectController::class, 'ParentStudentSubject']);
     Route::get('parent/my_student/exam_timetable/{student_id}', [ExaminationsController::class, 'ParentMyExamTimetable']);
 
+    Route::get('parent/my_student/exam_result/{student_id}', [ExaminationsController::class, 'ParentMyExamResult']);
     Route::get('parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}', [ClassTimetableController::class, 'MyTimetableParent']);
-
+    
     Route::get('parent/my_student', [ParentController::class, 'myStudentParent']);
+
+
+
 
 });

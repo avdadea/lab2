@@ -458,6 +458,42 @@ public function myExamResult()
 
         
 
-        
+//parent exam result side
+public function ParentMyExamResult($student_id){
+
+        $data['getStudent']=User::getSingle($student_id);
+        $result = array();
+        $getExam = MarksRegisterModel::getExam($student_id);
+
+        foreach ($getExam as $value) {
+
+            $dataE = array();
+            $dataE['exam_name'] = $value->exam_name;
+            $getExamSubject = MarksRegisterModel::getExamSubject($value->exam_id, $student_id);
+
+            $dataSubject = array();
+            foreach ($getExamSubject as $exam) {
+
+                $total_score=$exam['class_work']+ $exam['home_work']+ $exam['exam'];
+                $dataS = array();
+                $dataS['subject_name'] = $exam->subject_name;
+                $dataS['class_work'] = $exam->class_work;
+                $dataS['home_work'] = $exam->home_work;
+                $dataS['exam'] = $exam->exam;
+                $dataS['total_score'] = $total_score;
+                $dataS['full_marks'] = $exam->full_marks;
+                $dataS['passing_mark'] = $exam->passing_mark;
+                $dataSubject[] = $dataS;
+            }
+
+            $dataE['subject'] = $dataSubject;
+            $result[] = $dataE;
+        }
+
+        $data['getRecord'] = $result;
+        $data['header_title'] = "My Exam Result";
+        return view('parent.my_exam_result', $data);    
+                
+    }
 
 }
