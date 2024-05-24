@@ -16,6 +16,7 @@ use App\Http\Controllers\AssignClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
 
+use App\Http\Controllers\AttendanceController;
 
 
 
@@ -156,8 +157,11 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
     Route::post('admin/examinations/marks_grade/add', [ExaminationsController::class, 'marks_grade_insert']);
     Route::get('admin/examinations/marks_grade/edit/{id}', [ExaminationsController::class, 'marks_grade_edit']);
     Route::post('admin/examinations/marks_grade/edit/{id}', [ExaminationsController::class, 'marks_grade_update']);
-    Route::get('admin/examinations/marks_grade/delete/{id}', [ExaminationsController::class, 'marks_grade_delete']);
+    Route::get('admin/examinations/marks_grade/ delete/{id}', [ExaminationsController::class, 'marks_grade_delete']);
    
+
+    Route::get('admin/attendance/student', [AttendanceController::class, 'AttendanceStudent']);
+    Route::post('admin/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
 
     //teacher middleware
 
