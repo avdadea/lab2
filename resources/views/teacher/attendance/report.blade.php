@@ -39,7 +39,7 @@
                                         <select class="form-control" name="class_id">
                                             <option value="">Select</option>
                                             @foreach ($getClass as $class)
-                                            <option {{ (Request::get('class_id') == $class->id) ? 'selected' : '' }} value="{{ $class->id }}">{{$class->name}}</option>
+                                            <option {{ (Request::get('class_id') == $class->class_id) ? 'selected' : '' }} value="{{ $class->class_id }}">{{$class->class_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -67,7 +67,7 @@
 
                                     <div class="form-group col-md-2">
                                         <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
-                                        <a href="{{ url('admin/attendance/report') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
+                                        <a href="{{ url('teacher/attendance/report') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
                                     </div>
                                 </div>
                             </div><!-- /.card-body -->
@@ -94,7 +94,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  @forelse ($getRecord as $value)
+                                    @if(!empty($getRecord))
+                                    @forelse ($getRecord as $value)
                                   <tr>
                                     <td>{{ $value->student_id}}</td>
                                     <td>{{ $value->student_name}} {{ $value->student_last_name}}</td>
@@ -117,12 +118,20 @@
                                     <td colspan="Record not found"></td>
                                   </tr>
                                   @endforelse
+                                  @else
+                                  <tr>
+                                    <td colspan="Record not found"></td>
+                                  </tr>
+
+                                    @endif
+                                 
                                 </tbody>
                             </table>
-
+                            @if(!empty($getRecord))
                             <div style="padding: 10px; float: right;">
                                 {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                             </div>
+                            @endif
                          </div>
                        </div>
                     
