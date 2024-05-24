@@ -163,6 +163,9 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
     Route::get('admin/attendance/student', [AttendanceController::class, 'AttendanceStudent']);
     Route::post('admin/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
 
+    Route::get('admin/attendance/report', [AttendanceController::class, 'AttendanceReport']);
+
+
     //teacher middleware
 
 Route::group(['middleware' => TeacherMiddleware::class], function () {
