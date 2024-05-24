@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Request;
 
+
 class ClassSubjectModel extends Model
 {
     use HasFactory;
