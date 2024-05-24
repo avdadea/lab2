@@ -37,7 +37,7 @@
                     <input type="number" class="form-control" value="{{ old('percent_to') }}" name="percent_to" required placeholder="">
                 </div>
 
-               
+                @include('message')
 
                 </div>
                 <!-- /.card-body -->

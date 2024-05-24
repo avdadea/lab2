@@ -178,7 +178,6 @@
 
                                                 @php
                                                 $percentage=($totalStudentMark*100)/$totalFullMarks; 
-
                                                 $getGrade = App\Models\MarksGradeModel::getGrade($percentage); 
                                                 @endphp
                                                 <br>
