@@ -37,7 +37,9 @@ class CommunicateController extends Controller
         $save->created_by=Auth::user()->id;
         $save->save();
 
-        
+        if(!empty($request->message_to))
+        {
+
         foreach($request->message_to as $message_to)
         {
             $message=new NoticeBoardMessageModel;
@@ -46,6 +48,8 @@ class CommunicateController extends Controller
             $message->save();
 
         }
+
+    }
         return redirect('admin/communicate/notice_board')->with('success',"Notice Board successfully created");
 
 
