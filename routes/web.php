@@ -15,8 +15,8 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AssignClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
-
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CommunicateController;
 
 
 
@@ -164,6 +164,10 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
     Route::post('admin/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
 
     Route::get('admin/attendance/report', [AttendanceController::class, 'AttendanceReport']);
+
+    Route::get('admin/communicate/notice_board', [CommunicateController::class, 'NoticeBoard']);
+    Route::get('admin/communicate/notice_board/add', [CommunicateController::class, 'AddNoticeBoard']);
+    Route::post('admin/communicate/notice_board/add', [CommunicateController::class, 'InsertNoticeBoard']);
 
 
     //teacher middleware
