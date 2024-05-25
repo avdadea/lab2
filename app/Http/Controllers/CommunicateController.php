@@ -54,4 +54,52 @@ class CommunicateController extends Controller
 
 
     }
+
+    public function EditNoticeBoard($id)
+    {
+        $data['getRecord']=NoticeBoardModel::getSingle($id);
+        $data['header_title']='Edit Notice Board';
+        return view('admin.communicate.noticeboard.edit',$data);
+ 
+    }
+
+    
+    public function UpdateNoticeBoard($id, Request $request){
+
+        
+        $save= NoticeBoardModel::getSingle($id);
+        $save->title=$request->title;
+        $save->notice_date=$request->notice_date;
+        $save->publish_date=$request->publish_date;
+        $save->message=$request->message;
+        $save->save();
+
+
+        NoticeBoardMessageModel::DeleteRecord($id);
+
+        if(!empty($request->message_to))
+        {
+            foreach($request->message_to as $message_to)
+            {
+                $message=new NoticeBoardMessageModel;
+                $message->notice_board_id=$save->id;
+                $message->message_to = $message_to;
+                $message->save();
+
+            }
+
+        }
+        return redirect('admin/communicate/notice_board')->with('success',"Notice Board successfully updated");
+}
+
+    public function DeleteNoticeBoard($id)
+    {
+        $save= NoticeBoardModel::getSingle($id);
+        $save->delete();
+        NoticeBoardMessageModel::DeleteRecord($id);
+
+        return redirect()->back()->with('success',"Notice Board successfully Deleted");
+
+    }
+
 }

@@ -16,7 +16,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
+    
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -51,6 +51,8 @@
                     </div><!-- /.card-body -->
                 </form>
             </div>
+
+    @include('message')
 
             <!-- Admin List -->
             <div class="card">
