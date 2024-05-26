@@ -283,6 +283,14 @@ static     public function getTeacher(){
             
             return $return;              
     } 
+
+    static public function getUser($user_type)
+    {
+       return self::select('users.*')
+                 ->where('user_type', '=', $user_type)
+                 ->where('is_delete', '=', 0)
+                 ->get();
+    }
     static public function getStudentClass($class_id){
         
         return  self::select('users.id', 'users.name','users.last_name')
