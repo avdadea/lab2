@@ -17,6 +17,9 @@ use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CommunicateController;
+use App\Http\Controllers\FeesCollectionController;
+
+
 
 
 
@@ -177,6 +180,7 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
     Route::post('admin/communicate/send_email', [CommunicateController::class, 'SendEmailUser']);
 
     Route::get('admin/communicate/search_user', [CommunicateController::class, 'SearchUser']);
+    Route::get('admin/fees_collection/collect_fees', [FeesCollectionController::class, 'collect_fees']);
 
 
     //teacher middleware

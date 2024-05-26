@@ -28,6 +28,11 @@
                     <label>Class Name</label>
                     <input type="text" class="form-control" value="{{ $getRecord->name }}" name="name" required placeholder="Class Name">
                 </div>
+
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" class="form-control" name="amount"  value="{{ $getRecord->amount }}" required placeholder="Amount">
+                </div>
                 <div class="form-group">
                     <label>Status</label>
                     <select class="form-controller" name="status">

@@ -128,10 +128,14 @@ class CommunicateController extends Controller
 
     public function EditNoticeBoard($id)
     {
-        $data['getRecord']=NoticeBoardModel::getSingle($id);
-        $data['header_title']='Edit Notice Board';
-        return view('admin.communicate.noticeboard.edit',$data);
- 
+        $data['getRecord'] = NoticeBoardModel::getSingle($id);
+        $data['header_title'] = 'Edit Notice Board';
+    
+        // Fetch users and pass to the view
+        $data['users'] = User::all(); // Fetch all users
+        $data['selectedUser'] = $data['getRecord']->user_id ?? null; // Assuming there's a user_id in getRecord
+    
+        return view('admin.communicate.noticeboard.edit', $data);
     }
 
     

@@ -22,6 +22,7 @@ public function list(){
     public function insert(Request $request){
         $save = new ClassModel;
         $save->name = $request->name;
+        $save->amount = $request->amount;
         $save->status = $request->status;
         $save->created_by = Auth::user()->id;
         $save->save();
@@ -44,6 +45,7 @@ public function list(){
     public function update($id, Request $request){
         $save = ClassModel::getSingle($id);
         $save->name = $request->name;
+        $save->amount = $request->amount;
         $save->status = $request->status;
         $save->save();
 
