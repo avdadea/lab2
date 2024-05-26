@@ -20,4 +20,15 @@ class FeesCollectionController extends Controller
     
         return view('admin.fees_collection.collect_fees', $data);
     } 
+
+    public function collect_fees_add($student_id){
+        $data['getStudent'] = User::getSingleClass($student_id);
+        $data['header_title'] = "Add Collect Fees";
+    
+        return view('admin.fees_collection.add_collect_fees', $data);   
+    }
+
+    public function collect_fees_insert($student_id, Request $request){
+        dd($request->all());
+    }
 }
