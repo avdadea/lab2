@@ -255,6 +255,7 @@ Route::group(['middleware' => ParentMiddleware::class], function () {
 
     Route::get('parent/my_notice_board', [CommunicateController::class, 'MyNoticeBoardParent']);
 
+    Route::get('parent/my_student_notice_board', [CommunicateController::class, 'MyStudentNoticeBoardParent']);
 
 
 

@@ -514,14 +514,22 @@
           </li>  
 
           <li class="nav-item">
-            <a href="{{ url('teacher/my_notice_board')}}" class="nav-link  @if(Request::segment(2) == 'my_notice_board') active @endif">
+            <a href="{{ url('parent/my_student_notice_board')}}" class="nav-link  @if(Request::segment(2) == 'my_student_notice_board') active @endif">
+              <i class="nav-icon far fa-user"></i>
+              <p>
+               My Student Notice Board
+              </p>
+            </a>
+          </li> 
+
+          <li class="nav-item">
+            <a href="{{ url('parent/my_notice_board')}}" class="nav-link  @if(Request::segment(2) == 'my_notice_board') active @endif">
               <i class="nav-icon far fa-user"></i>
               <p>
                My Notice Board
               </p>
             </a>
           </li> 
-
 
           <li class="nav-item">
             <a href="{{ url('parent/account')}}" class="nav-link  @if(Request::segment(2) == 'account') active @endif">

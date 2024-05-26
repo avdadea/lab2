@@ -129,5 +129,12 @@ class CommunicateController extends Controller
         return view('parent.my_notice_board',$data);
  
     }
+    public function MyStudentNoticeBoardParent()
+    {
+        $data['getRecord']=NoticeBoardModel::getRecordUser(3);
+        $data['header_title']='My Notice Board';
+        return view('parent.my_student_notice_board',$data);
+ 
+    }
 
 }
