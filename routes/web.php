@@ -203,6 +203,8 @@ Route::group(['middleware' => TeacherMiddleware::class], function () {
 
     Route::get('teacher/attendance/report', [AttendanceController::class, 'AttendanceReportTeacher']);
 
+    Route::get('teacher/my_notice_board', [CommunicateController::class, 'MyNoticeBoardTeacher']);
+
 });
 //student 
 Route::group(['middleware' => StudentMiddleware::class], function () {
@@ -224,7 +226,7 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     Route::get('student/my_exam_result', [ExaminationsController::class, 'myExamResult']);
     Route::get('student/my_attendance', [AttendanceController::class, 'myAttendanceStudent']);
     
-    Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoard']);
+    Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoardStudent']);
 
 
     
@@ -250,6 +252,9 @@ Route::group(['middleware' => ParentMiddleware::class], function () {
     Route::get('parent/my_student/attendance/{student_id}', [AttendanceController::class, 'myAttendanceParent']);
 
     Route::get('parent/my_student', [ParentController::class, 'myStudentParent']);
+
+    Route::get('parent/my_notice_board', [CommunicateController::class, 'MyNoticeBoardParent']);
+
 
 
 
