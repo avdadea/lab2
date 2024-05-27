@@ -104,12 +104,12 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="100%">Record not foung</td>
+                                <td colspan="100%">Record not found</td>
                             </tr>
                             @endforelse
                             @else
                             <tr>
-                                <td colspan="100%">Record not foung</td>
+                                <td colspan="100%">Record not found</td>
                             </tr>
                             @endif
    

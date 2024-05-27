@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Collect Fees</h1>
+                    <h1>Collect Fees <span style="color:blue;">({{ $getStudent->name}} {{ $getStudent->last_name }})</span> </h1>
                 </div>
 
                 <div class="col-sm-6" style="text-align: right;">
@@ -38,17 +38,35 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Student ID</th>
-                                <th>Student Name</th>
                                 <th>Class Name</th>
                                 <th>Total Amount</th>
                                 <th>Paid Amount</th>
+                                <th>Remaining Amount</th>                                
+                                <th>Payment Type</th>
+                                <th>Remark</th>
+                                <th>Created By</th>
                                 <th>Created Date</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                    
+                        @forelse($getFees as $value)
+                        <tr>
+                        <td>{{ $value->class_name}}</td>
+                        <td>${{ number_format($value->total_amount,2) }}</td>
+                        <td>${{ number_format($value->paid_amount,2) }}</td>
+                        <td>${{ number_format($value->remaining_amount,2) }}</td>
+                        <td>{{ $value->payment_type}}</td>
+                        <td>{{ $value->remark}}</td>                       
+                        <td>{{ $value->created_name}}</td>
+                        <td>{{ date('d-m-y', strtotime($value->created_at))}}</td>
+
+                        </tr>
+                        @empty
+                        <tr>
+                          <td colspan="100%">Record not found.</td>
+                        </tr>
+
+                        @endforelse
    
                         </tbody>
                     </table>
@@ -63,19 +81,23 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="exampleModalLabel">Add Fees</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="" methid="post">
+      <form action="" method="post">
       {{ csrf_field()}}
       <div class="modal-body">
        
+        <div class="form-group">
+            <label class="col-form-label">Class Name: {{$getStudent->class_name}}</label>
+        </div>
 
         <div class="form-group">
             <label class="col-form-label">Total Amount: ${{ number_format($getStudent->amount,2)}}</label>
-          </div>
+        </div>
 
           <div class="form-group">
             <label class="col-form-label">Paid Amount:</label>
