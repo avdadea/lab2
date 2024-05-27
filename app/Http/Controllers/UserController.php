@@ -4,11 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SettingModel;
+
 use Auth;
 use Hash;
 use Str;
 class UserController extends Controller
 {
+
+    public function Setting()
+    {
+
+        $data['getRecord']=SettingModel::getSingle();
+        $data['header_title']= "Setting";
+        return view('admin.setting', $data);
+
+    }
+
+    public function UpdateSetting(Request $request)
+    {
+        $setting=SettingModel::getSingle();
+        $setting->paypal_email=trim($request->paypal_email);
+        $setting->save();
+
+        return redirect()->back()->with('success', "Setting successfully Updated"); 
+
+    }
+
     public function MyAccount()
     {
         $data['getRecord']=User::getSingle(Auth::user()->id);

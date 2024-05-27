@@ -34,6 +34,10 @@ Route::post('reset/{token}', [AuthController::class, 'PostReset']);
 Route::get('admin/account', [UserController::class, 'MyAccount']);
 Route::post('admin/account', [UserController::class, 'UpdateMyAccountAdmin']);
 
+Route::get('admin/setting', [UserController::class, 'Setting']);
+Route::post('admin/setting', [UserController::class, 'UpdateSetting']);
+
+
 
 
 
