@@ -240,8 +240,9 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     
     Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoardStudent']);
 
+    Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);
+    Route::post('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudentPayment']);
 
-    
    
 });
 
