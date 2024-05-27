@@ -100,14 +100,15 @@
         </div>
 
           <div class="form-group">
-            <label class="col-form-label">Paid Amount:</label>
+            <label class="col-form-label">Paid Amount: ${{ number_format($getStudent->paid_amount,2)}}</label>
           </div>
 
           <div class="form-group">
-            <label class="col-form-label">Remaining Amount:</label>
+          @php 
+                $RemainingAmount = $getStudent->amount - $paid_amount;
+          @endphp
+            <label class="col-form-label">Remaining Amount: ${{number_format($RemainingAmount,2)}}</label>
           </div>
-
-
 
           <div class="form-group">
             <label class="col-form-label">Amount <span style="color:red;">*</span></label>
