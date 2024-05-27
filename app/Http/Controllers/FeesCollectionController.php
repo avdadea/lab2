@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ClassModel;
 use App\Models\User;
 use App\Models\StudentAddFeesModel;
+use App\Models\SettingModel;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -117,8 +118,27 @@ class FeesCollectionController extends Controller
                     $payment->is_payment=1;
                     $payment->save();
 
-                if ($request->payment_type=='PayPal') {
-                    # code...
+                    $getSetting=SettingModel::getSingle();
+                    
+                    
+                    if ($request->payment_type=='PayPal') {
+                    
+                   $paypalId=
+                   $query=array();
+                   $query['business']=$getSetting->paypal_email;
+                   $query['cmd']='_xclick';
+                   $query['item_name']="Student Fees";
+                   $query['no_shipping']='1';
+                   $query['item_number']=$payment->id;
+                   $query['amount']=$request->amount;
+                   $query['currency_code']='USD';
+                   $query['cancel_return']=url('student/paypal/payment-error');
+                   $query['return']=url('student/paypal/payment-success');
+                
+                   $query_string=http_build_query($query);
+                    header('Location: https://www.sandbox.paypal.com/cgi-bin/webscr?'.$query_string);
+                    exit();
+
                 }
                 else if ($request->payment_type=='Stripe') {
 
@@ -134,10 +154,22 @@ class FeesCollectionController extends Controller
        else 
        {
         return redirect()->back()->with('error','You need to add your amount at least 1$');
-       }
-            
+       }   
 
     }
+
+    public function PaymentError() 
+    {
+       return redirect('student/fees_collection')->with('error',"Due to some error please try again");
+    }
+
+
+    public function PaymentSuccess(Request $request)
+    {
+        dd($request->all());
+    }
+
+
 
 
 

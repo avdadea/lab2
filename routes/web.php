@@ -247,7 +247,10 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);
     Route::post('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudentPayment']);
 
-   
+    Route::get('student/paypal/payment-error', [FeesCollectionController::class, 'PaymentError']);
+    Route::get('student/paypal/payment-success', [FeesCollectionController::class, 'PaymentSuccess']);
+
+    
 });
 
 //parent
