@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NoticeBoardModel;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
@@ -9,6 +10,7 @@ use App\Models\StudentAddFeesModel;
 use App\Models\ExamModel;
 use App\Models\ClassModel;
 use App\Models\SubjectModel;
+use App\Models\AssignClassTeacherModel;
 
 
 class DashboardController extends Controller
@@ -33,6 +35,11 @@ class DashboardController extends Controller
         }
         else if(Auth::user()->user_type==2)
         {
+            $data['TotalStudent']=User::getTeacherStudentCount(Auth::user()->id);
+            $data['TotalClass']=AssignClassTeacherModel::getMyClassSubjectGroupCount(Auth::user()->id);
+            $data['TotalSubject']=AssignClassTeacherModel::getMyClassSubjectCount(Auth::user()->id);
+           $data['TotalNoticeBoard']=NoticeBoardModel::getRecordUserCount(Auth::user()->user_type);
+
             return view('teacher.dashboard',  $data);
         }
         else if(Auth::user()->user_type==3)
