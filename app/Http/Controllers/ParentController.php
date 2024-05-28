@@ -179,4 +179,5 @@ class ParentController extends Controller
         return view('parent.my_student',$data);
         
     }
+
 }

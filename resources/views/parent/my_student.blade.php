@@ -41,17 +41,11 @@
                             <th>Student Name</th> <!-- Text -->
                             <th>Email</th> <!-- Email -->
                             <th>Admission Number</th> <!-- Numeric -->
-                            <th>Roll Number</th> <!-- Numeric -->
                             <th>Class</th> <!-- Text -->
                             <th>Gender</th> <!-- Text -->
                             <th>Date of Birth</th> <!-- Date -->
-                            <th>Caste</th> <!-- Text -->
-                            <th>Religion</th> <!-- Text -->
                             <th>Mobile Number</th> <!-- Phone Number -->
                             <th>Admission Date</th> <!-- Date -->
-                            <th>Blood Group</th> <!-- Text -->
-                            <th>Height</th> <!-- Numeric -->
-                            <th>Weight</th> <!-- Numeric -->
                             <th>Created Date</th> <!-- Date -->
                             <th>Action</th>
                         </tr>
@@ -68,7 +62,6 @@
                             <td>{{ $value->name }} {{ $value->last_name }}</td>
                             <td>{{ $value->email }}</td>
                             <td>{{ $value->admission_number }}</td>
-                            <td>{{ $value->roll_number }}</td>
                             <td>{{ $value->class_name }}</td>
                             <td>{{ $value->gender }}</td>
                             <td>
@@ -76,17 +69,13 @@
                                 {{ date('d-m-Y', strtotime($value->date_of_birth)) }}
                                 @endif
                             </td>
-                            <td>{{ $value->caste }}</td>
-                            <td>{{ $value->religion }}</td>
                             <td>{{ $value->mobile_number }}</td>
                             <td>
                                 @if(!empty($value->admission_date))
                                 {{ date('d-m-Y', strtotime($value->admission_date)) }}
                                 @endif
                             </td>
-                            <td>{{ $value->blood_group }}</td>
-                            <td>{{ $value->height }}</td>
-                            <td>{{ $value->weight }}</td>
+                
                             <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
                             <td style="width: 500px">
                                 <a class="btn btn-success btn-sm" href="{{ url('parent/my_student/subject/'.$value->id)}}">Subject</a>

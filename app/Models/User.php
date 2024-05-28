@@ -253,6 +253,43 @@ class User extends Authenticatable
         return $return;
         } 
 
+        public static function getMyStudentCount($parent_id){
+
+            $return = self::select('users.id')
+                ->join('users as parent','parent.id','=','users.parent_id','left')
+                ->join('class', 'class.id', '=', 'users.class_id', 'left')
+                ->where('users.user_type', '=', 3)
+                ->where('users.parent_id', '=', $parent_id)
+                ->where('users.is_delete', '=', 0)
+                ->count();
+        
+                return $return;
+                } 
+
+            static public function getMyStudentIds($parent_id)
+            {
+                $return = self::select('users.id')
+                ->join('users as parent','parent.id','=','users.parent_id','left')
+                ->join('class', 'class.id', '=', 'users.class_id', 'left')
+                ->where('users.user_type', '=', 3)
+                ->where('users.parent_id', '=', $parent_id)
+                ->where('users.is_delete', '=', 0)
+                ->orderBy('users.id', 'desc')
+                ->get();
+
+                $student_ids=array();
+
+                foreach($return as $value)
+                {
+                    $student_ids[]=$value->id;
+                }
+                return $student_ids;
+        
+            }    
+
+   
+        
+
     static public function getPaidAmount($student_id, $class_id)
     {
         return StudentAddFeesModel::getPaidAmount($student_id, $class_id);
