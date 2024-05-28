@@ -29,10 +29,12 @@
                 <form method="get" action="">
                     <div class="card-body">
                         <div class="row">
+                            
                             <div class="form-group col-md-3">
                                 <label>Name</label>
                                 <input type="text" class="form-control" value="{{ Request::get('name') }}" name="name" placeholder="Name">
                             </div>
+
                             <div class="form-group col-md-3">
                                 <label>Email</label>
                                 <input type="text" class="form-control" value="{{ Request::get('email') }}" name="email" placeholder="Email">
@@ -65,6 +67,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Profile Pic</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Created Date</th>
@@ -75,6 +78,11 @@
                             @foreach($getRecord as $value)
                             <tr>
                                 <td>{{$value->id }} </td>
+                                <td>
+                                @if(!empty($value->getProfile()))
+                                <img src="{{ $value->getProfile() }}" style="height: 50px; width:50px; border-radius: 50px;">
+                                @endif
+                                </td>
                                 <td>{{$value->name }} </td>
                                 <td>{{$value->email }} </td>
                                 <td>{{ date('d-m-Y h:i A', strtotime($value->created_at)) }} </td>

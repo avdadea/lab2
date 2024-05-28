@@ -20,7 +20,7 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-              <form method="post" action="">
+              <form method="post" action="" enctype="multipart/form-data">
               {{ csrf_field()}}
 
                 <div class="card-body">
@@ -37,10 +37,16 @@
                     <label for="exampleInputPassword1">Password</label>
                     <input type="text" class="form-control" name="password"  placeholder="Password">
                     <p>Do you want to change password? Please, Add New Password!</p>
-                
-                
                 </div>
                  
+                <div class="form-group">
+                    <label>Profile Pic<span style="color : red;"></span></label>
+                    <input type="file" class="form-control" name="profile_picture">
+                    <div style="color:red"> {{$errors->first('profile_picture') }}</div>
+                    @if(!empty($getRecord->getProfile()))
+                        <img src="{{$getRecord->getProfile()}}" style="width: auto;height: 50px;">
+                    @endif
+                </div>
 
                 </div>
                 <!-- /.card-body -->

@@ -67,6 +67,15 @@
                     </select>
                 </div>
               
+                <div class="form-group col-md-6">
+                    <label>Status<span style="color : red;">*</span></label>
+                    <select class="form-control" required name="status"> 
+                        <option value="">Select Status</option>
+                        <option {{ (old('status',$getRecord->status) ==0) ? 'selected' : '' }} value="0">Active</option>
+                        <option {{ (old('status',$getRecord->status) ==1) ? 'selected' : '' }} value="1">Inactive</option>
+                    </select>
+                    <div style="color:red"> {{$errors->first('status') }}</div>
+                </div>
               
                  
 

@@ -20,7 +20,7 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-              <form method="post" action="">
+              <form method="post" action="" enctype="multipart/form-data">
               {{ csrf_field()}}
 
                 <div class="card-body">
@@ -36,6 +36,12 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" name="password" required placeholder="Password">
+                </div>
+                 
+                <div class="form-group">
+                    <label>Profile Picture<span style="color : red;"></span></label>
+                    <input type="file" class="form-control" name="profile_picture">
+                    <div style="color:red"> {{$errors->first('profile_picture') }}</div>
                 </div>
                  
 

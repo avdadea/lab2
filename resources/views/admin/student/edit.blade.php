@@ -56,21 +56,21 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label>Gender<span style="color : red;">*</span></label>
-                    <select class="form-control" required name="gender"> 
-                        <option value="">Select Gender</option>
-                        <option {{ (old('gender',$getRecord->gender) =='Male') ? 'selected' : '' }} value="Male">Male</option>
-                        <option {{ (old('gender',$getRecord->gender) =='Female') ? 'selected' : '' }}value="Female">Female</option>
-                        <option {{ (old('gender',$getRecord->gender) =='Other') ? 'selected' : '' }}value="Other">Other</option>
-                    </select>
-                    <div style="color:red"> {{$errors->first('gender') }}</div>
-                </div>
+                  <label>Gender<span style="color: red;">*</span></label>
+                 <select class="form-control" required name="gender">
+                      <option value="">Select Gender</option>
+                      <option value="Male" {{ old('gender', $getRecord->gender) == 'Male' ? 'selected' : '' }}>Male</option>
+                      <option value="Female" {{ old('gender', $getRecord->gender) == 'Female' ? 'selected' : '' }}>Female</option>
+                      <option value="Other" {{ old('gender', $getRecord->gender) == 'Other' ? 'selected' : '' }}>Other</option>
+                 </select>
+                 <div style="color:red">{{ $errors->first('gender') }}</div>
+                 </div>
 
-                <div class="form-group col-md-6">
-                    <label>Date of Birth<span style="color : red;">*</span></label>
-                    <input type="date" class="form-control required" value="{{ old('date_of_birth',$getRecord->gender) }}" name="date_of_birth">
-                    <div style="color:red"> {{$errors->first('date_of_birth') }}</div>
-                </div>
+                 <div class="form-group col-md-6">
+                            <label>Date of Birth<span style="color : red;">*</span></label>
+                            <input type="date" class="form-control required" value="{{ old('date_of_birth',$getRecord->date_of_birth) }}" name="date_of_birth" required>
+                            <div style="color:red"> {{$errors->first('date_of_birth') }}</div>
+                        </div>
                
                 <div class="form-group col-md-6">
                     <label>Mobile Number<span style="color : red;"></span></label>
