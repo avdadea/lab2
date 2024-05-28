@@ -38,12 +38,6 @@
                     <div style="color:red"> {{$errors->first('last_name') }}</div>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label>Admission Number<span style="color : red;">*</span></label>
-                    <input type="text" class="form-control" value="{{ old('admission_number', $getRecord->admission_number) }}" name="admission_number" required placeholder="Admission Number">
-                    <div style="color:red"> {{$errors->first('admission_number') }}</div>
-                </div>
-
                
                 <div class="form-group col-md-6">
                     <label>Gender<span style="color : red;">*</span></label>

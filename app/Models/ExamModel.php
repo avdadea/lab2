@@ -41,8 +41,19 @@ class ExamModel extends Model
     {
         $return = self::select('exam.*')
             ->join('users', 'users.id', '=', 'exam.created_by')
+            ->where('exam.is_delete', '=', 0)
             ->orderBy('exam.name', 'asc')
             ->get();
+
+        return $return;
+    }
+
+    static public function getTotalExam()
+    {
+        $return = self::select('exam.id')
+            ->join('users', 'users.id', '=', 'exam.created_by')
+            ->where('exam.is_delete', '=', 0)
+            ->count();
 
         return $return;
     }

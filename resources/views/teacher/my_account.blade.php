@@ -62,12 +62,7 @@
                             <input type="text" class="form-control" value="{{ old('mobile_number',$getRecord->mobile_number) }}" name="mobile_number" placeholder="Mobile Number">
                             <div style="color:red"> {{$errors->first('mobile_number') }}</div>
                         </div>
-                                       
-                        <div class="form-group col-md-6">
-                            <label>Marital Status<span style="color : red;"></span></label>
-                            <input type="text" class="form-control" value="{{ old('marital_status',$getRecord->marital_status) }}" name="marital_status" placeholder="Marital Status">
-                            <div style="color:red"> {{$errors->first('marital_status') }}</div>
-                        </div>
+                    
 
                         <div class="form-group col-md-6">
                             <label>Profile Pic<span style="color : red;"></span></label>
@@ -79,15 +74,9 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>Current Address<span style="color : red;"></span></label>
+                            <label>Address<span style="color : red;"></span></label>
                             <input type="text" class="form-control" name="address" value="{{ old('address',$getRecord->address) }}">
                             <div style="color:red"> {{$errors->first('address') }}</div>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Permanent Address<span style="color : red;"></span></label>
-                            <input type="text" class="form-control" name="permanent_address" value="{{ old('permanent_address',$getRecord->permanent_address) }}" >
-                            <div style="color:red"> {{$errors->first('permanent_address') }}</div>
                         </div>
 
                         <div class="form-group col-md-6">
