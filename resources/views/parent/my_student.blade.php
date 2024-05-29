@@ -82,6 +82,8 @@
                                 <a class="btn btn-primary btn-sm" href="{{ url('parent/my_student/exam_timetable/'.$value->id)}}">Exam Timetable</a>
                                 <a class="btn btn-primary btn-sm" href="{{ url('parent/my_student/exam_result/'.$value->id)}}">Exam Result</a>
                                 <a class="btn btn-primary btn-sm" href="{{ url('parent/my_student/attendance/'.$value->id)}}">Attendance</a>
+                                <a class="btn btn-success btn-sm" href="{{ url('parent/my_student/fees_collection/'.$value->id)}}">Fees Collection</a>
+
 
                             </td>
                         </tr>
