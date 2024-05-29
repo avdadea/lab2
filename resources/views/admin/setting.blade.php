@@ -31,6 +31,18 @@
                     <label>PayPal Email</label>
                     <input type="email" class="form-control" name="paypal_email" value="{{$getRecord->paypal_email}}" required  placeholder="PayPal Email">
                 </div>
+
+
+                <div class="form-group">
+                    <label>Stripe Public Key</label>
+                    <input type="text" class="form-control" name="stripe_key" value="{{$getRecord->stripe_key}}" >
+                </div>
+
+                <div class="form-group">
+                    <label>Stripe Secret Key</label>
+                    <input type="text" class="form-control" name="stripe_secret" value="{{$getRecord->stripe_secret}}">
+                </div>
+
             </div>
 
                 <div class="card-footer">
