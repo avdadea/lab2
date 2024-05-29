@@ -250,7 +250,8 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     Route::get('student/paypal/payment-error', [FeesCollectionController::class, 'PaymentError']);
     Route::get('student/paypal/payment-success', [FeesCollectionController::class, 'PaymentSuccess']);
 
-    
+    Route::get('student/stripe/payment-error', [FeesCollectionController::class, 'PaymentError']);
+    Route::get('student/stripe/payment-success', [FeesCollectionController::class, 'PaymentSuccessStripe']);
 });
 
 //parent
