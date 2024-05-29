@@ -252,6 +252,9 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
 
     Route::get('student/stripe/payment-error', [FeesCollectionController::class, 'PaymentError']);
     Route::get('student/stripe/payment-success', [FeesCollectionController::class, 'PaymentSuccessStripe']);
+
+    
+
 });
 
 //parent
@@ -279,7 +282,13 @@ Route::group(['middleware' => ParentMiddleware::class], function () {
     Route::get('parent/my_student_notice_board', [CommunicateController::class, 'MyStudentNoticeBoardParent']);
 
 
+    Route::get('parent/my_student/fees_collection/{student_id}', [FeesCollectionController::class, 'CollectFeesStudentParent']);
 
+    Route::post('parent/my_student/fees_collection/{student_id}', [FeesCollectionController::class, 'CollectFeesStudentPaymentParent']);
+
+    Route::get('parent/stripe/payment-error/{student_id}', [FeesCollectionController::class, 'PaymentErrorParent']);
+    Route::get('parent/stripe/payment-success/{student_id}', [FeesCollectionController::class, 'PaymentSuccessStripeParent']);
+    
 
 
 });
