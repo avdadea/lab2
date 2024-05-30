@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Fees Collection <span style="color: blue;">( {{ $getStudent->name }} {{ $getStudent->lasy_name }} )</span></h1>
+                    <h1>Fees Collection <span style="color-blue;">{{ $getStudent->name}} {{ $getStudent->last_name}}</span></h1>
                 </div>
 
                 <div class="col-sm-6" style="text-align: right;">

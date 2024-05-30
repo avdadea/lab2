@@ -12,6 +12,7 @@ use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
 use Session;
 
+
 class FeesCollectionController extends Controller
 {
     public function collect_fees(Request $request){
@@ -26,13 +27,28 @@ class FeesCollectionController extends Controller
     } 
 
     public function collect_fees_add($student_id){
-        $data['getFees'] = StudentAddFeesModel::getFees($student_id);
         $getStudent = User::getSingleClass($student_id);
+        \Log::info('Student Data Retrieved', ['student' => $getStudent]);
+        
+        $data['getFees'] = StudentAddFeesModel::getFees($student_id);
         $data['getStudent'] = $getStudent;
         $data['header_title'] = "Add Collect Fees";
-        $data['paid_amount'] = StudentAddFeesModel::getPaidAmount($student_id, $getStudent->class_id);
+    
+        // Calculate the total paid amount for the student
+        $paid_amount = StudentAddFeesModel::where('student_id', $student_id)->sum('paid_amount');
+        \Log::info('Total Paid Amount Calculated', ['paid_amount' => $paid_amount]);
+        
+        // Calculate the remaining amount
+        $total_course_fee = $getStudent->amount; // Assuming this is the total course fee
+        $remaining_amount = $total_course_fee - $paid_amount;
+        \Log::info('Remaining Amount Calculated', ['remaining_amount' => $remaining_amount]);
+    
+        $data['paid_amount'] = $paid_amount;
+        $data['remaining_amount'] = $remaining_amount;
+    
         return view('admin.fees_collection.add_collect_fees', $data);    
     }
+    
 
     public function collect_fees_insert($student_id, Request $request){
         $getStudent = User::getSingleClass($student_id);
@@ -194,7 +210,7 @@ class FeesCollectionController extends Controller
             ]);
         }
     
-        return redirect('student/fees_collection')->with('error', "Due to some error, please try again");
+        return redirect('student/fees_collection')->with('success', "Your Payment was Successful");
     }
     
     
@@ -211,7 +227,7 @@ class FeesCollectionController extends Controller
                 $fees->is_payment = 1;
                 $fees->payment_data = json_encode($request->all());
                 $fees->save();
-                return redirect('student/fees_collection')->with('success', "Your Payment Successfully");
+                return redirect('student/fees_collection')->with('success', "Your Payment Successfully Completed");
             } else {
                 return redirect('student/fees_collection')->with('error', "Due to some error, please try again");
             }
@@ -228,7 +244,7 @@ class FeesCollectionController extends Controller
         $getStudent = User::getSingleClass($student_id);
         $data['getStudent'] = $getStudent;
         $data['header_title'] = "Fees Collection";
-        $data['paid_amount'] = StudentAddFeesModel::getPaidAmount($student_id, Auth::user()->id, $getStudent->class_id);
+        $data['paid_amount'] = StudentAddFeesModel::getPaidAmount($student_id, $getStudent->class_id);
         return view('parent.my_fees_collection', $data);    
     }
 
@@ -304,7 +320,7 @@ class FeesCollectionController extends Controller
         return redirect('parent/my_student/fees_collection/'.$student_id)->with('error', "Due to some error, please try again");
     }
 
-    public function PaymentSuccessParent($student_id){
+    public function PaymentSuccessParent($student_id,$request){
 
         if (!empty($request->item_number) && !empty($request->st) && $request->st == 'Completed') {
             $fees = StudentAddFeesModel::getSingle($request->item_number);
@@ -314,7 +330,7 @@ class FeesCollectionController extends Controller
                 $fees->save();
                 return redirect('parent/my_student/fees_collection/'.$student_id)->with('success', "Your Payment Successfully");
             } else {
-                return redirect('parent/my_student/fees_collection/'.$student_id)->with('error', "1Due to some error, please try again");
+                return redirect('parent/my_student/fees_collection/'.$student_id)->with('error', "Due to some error, please try again");
             }
         } else {
             return redirect('parent/my_student/fees_collection/'.$student_id)->with('error', "Due to some error, please try again");
@@ -376,7 +392,7 @@ class FeesCollectionController extends Controller
             ]);
         }
     
-        return redirect('parent/my_student/fees_collection/'.$student_id)->with('error', "Due to some error, please try again");
+        return redirect('parent/my_student/fees_collection/'.$student_id)->with('success', "Your Payment was Successful");
     }
     
 }
