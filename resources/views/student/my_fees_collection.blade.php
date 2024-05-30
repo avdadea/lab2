@@ -100,7 +100,7 @@
         </div>
 
           <div class="form-group">
-            <label class="col-form-label">Paid Amount: ${{ number_format($getStudent->paid_amount,2)}}</label>
+            <label class="col-form-label">Paid Amount: ${{ number_format($paid_amount,2)}}</label>
           </div>
 
           <div class="form-group">

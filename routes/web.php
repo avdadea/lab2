@@ -184,12 +184,16 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
     Route::post('admin/communicate/send_email', [CommunicateController::class, 'SendEmailUser']);
 
     Route::get('admin/communicate/search_user', [CommunicateController::class, 'SearchUser']);
+   
     Route::get('admin/fees_collection/collect_fees', [FeesCollectionController::class, 'collect_fees']);
+    Route::get('admin/fees_collection/collect_fees_report', [FeesCollectionController::class, 'collect_fees_report']);
+
 
     Route::get('admin/fees_collection/collect_fees/add_fees/{student_id}', [FeesCollectionController::class, 'collect_fees_add']);
     Route::post('admin/fees_collection/collect_fees/add_fees/{student_id}', [FeesCollectionController::class, 'collect_fees_insert']);
 
 
+    
     //teacher middleware
 
 Route::group(['middleware' => TeacherMiddleware::class], function () {

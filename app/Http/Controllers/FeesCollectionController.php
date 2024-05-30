@@ -25,27 +25,34 @@ class FeesCollectionController extends Controller
     
         return view('admin.fees_collection.collect_fees', $data);
     } 
+     public function collect_fees_report()
+     {
+        $data['getClass'] = ClassModel::getClass();
 
-    public function collect_fees_add($student_id){
+        $data['getRecord']=StudentAddFeesModel::getRecord();
+        $data['header_title'] = "Collect Fees Report";
+        return view('admin.fees_collection.collect_fees_report', $data);
+     }
+
+
+    public function collect_fees_add($student_id) {
         $getStudent = User::getSingleClass($student_id);
         \Log::info('Student Data Retrieved', ['student' => $getStudent]);
         
         $data['getFees'] = StudentAddFeesModel::getFees($student_id);
         $data['getStudent'] = $getStudent;
         $data['header_title'] = "Add Collect Fees";
-    
-        // Calculate the total paid amount for the student
+        
         $paid_amount = StudentAddFeesModel::where('student_id', $student_id)->sum('paid_amount');
         \Log::info('Total Paid Amount Calculated', ['paid_amount' => $paid_amount]);
         
-        // Calculate the remaining amount
         $total_course_fee = $getStudent->amount; // Assuming this is the total course fee
         $remaining_amount = $total_course_fee - $paid_amount;
         \Log::info('Remaining Amount Calculated', ['remaining_amount' => $remaining_amount]);
-    
+        
         $data['paid_amount'] = $paid_amount;
         $data['remaining_amount'] = $remaining_amount;
-    
+        
         return view('admin.fees_collection.add_collect_fees', $data);    
     }
     

@@ -219,7 +219,7 @@
 
 
         <li class="nav-item @if(Request::segment(2) == 'fees_collection') menu-is-opening menu-open @endif"> 
-          <a href="#" class="nav-link @if(Request::segment(2) == 'fees_collection') active @endif">
+          <a href="#" class="nav-link @if(Request::segment(2) == 'fees_collection' || Request::segment(2) == 'collect_fees_report') active @endif">
              <i class="nav-icon fas fa-table"></i>
                 <p>
                   Fees Collection
@@ -231,6 +231,13 @@
               <a href="{{ url('admin/fees_collection/collect_fees') }}" class="nav-link @if(Request::segment(3) == 'collect_fees') active @endif"> 
                 <i class="far fa-circle nav-icon"></i>
                   <p>Collect Fees</p>
+              </a> 
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url('admin/fees_collection/collect_fees_report') }}" class="nav-link @if(Request::segment(3) == 'collect_fees_report') active @endif"> 
+                <i class="far fa-circle nav-icon"></i>
+                  <p>Collect Fees Report</p>
               </a> 
             </li>
 
