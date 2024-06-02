@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Request;
+use Cache;
 
 
 class User extends Authenticatable
@@ -50,6 +51,10 @@ class User extends Authenticatable
 
         return self::find($id);
         
+    }
+     public function OnlineUser()
+    {
+        return Cache::has('OnlineUser'.$this->id);
     }
 
     static public function getTotalUser($user_type)
@@ -313,7 +318,20 @@ class User extends Authenticatable
         }
         else
         {
-            return "";
+            return '';
+        }
+        
+    }
+
+    public function getProfileDirect()
+    {
+        if(!empty($this->profile_picture) && file_exists('upload/profile/'. $this->profile_picture))
+        {
+            return url('upload/profile/'.$this->profile_picture);
+        }
+        else
+        {
+            return url('upload/profile/user.jpg');
         }
         
     }

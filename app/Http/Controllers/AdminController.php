@@ -89,7 +89,7 @@ class AdminController extends Controller
         }
         $user->save();
 
-        return redirect('admin/admin/list')->with('succcess',"Admin successfully updated");
+        return redirect('admin/admin/list')->with('success',"Admin successfully updated");
 
     }
 
@@ -99,7 +99,7 @@ class AdminController extends Controller
         $user->is_delete=1;
         $user->save();
 
-        return redirect('admin/admin/list')->with('succcess',"Admin successfully deleted");
+        return redirect('admin/admin/list')->with('success',"Admin successfully deleted");
 
     }
 

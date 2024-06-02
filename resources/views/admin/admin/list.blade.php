@@ -79,16 +79,17 @@
                             <tr>
                                 <td>{{$value->id }} </td>
                                 <td>
-                                @if(!empty($value->getProfile()))
-                                <img src="{{ $value->getProfile() }}" style="height: 50px; width:50px; border-radius: 50px;">
+                                @if(!empty($value->getProfileDirect()))
+                                <img src="{{ $value->getProfileDirect() }}" style="height: 50px; width:50px; border-radius: 50px;">
                                 @endif
                                 </td>
                                 <td>{{$value->name }} </td>
                                 <td>{{$value->email }} </td>
-                                <td>{{ date('d-m-Y h:i A', strtotime($value->created_at)) }} </td>
+                                <td>{{ date('d-m-Y', strtotime($value->created_at)) }} </td>
                                 <td>
                                     <a href="{{ url('admin/admin/edit/'.$value->id )}}" class="btn btn-primary">Edit</a>
                                     <a href="{{ url('admin/admin/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ url('chat?receiver_id='.base64_encode($value->id)) }}" class="btn btn-success">Send Message</a>
                                 </td>
                             </tr>
                             @endforeach

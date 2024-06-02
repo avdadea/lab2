@@ -18,6 +18,7 @@ use App\Http\Controllers\ExaminationsController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CommunicateController;
 use App\Http\Controllers\FeesCollectionController;
+use App\Http\Controllers\ChatController;
 
 
 
@@ -30,6 +31,15 @@ Route::get('forgot-password', [AuthController::class, 'forgotpassword']);
 Route::post('forgot-password', [AuthController::class, 'PostForgotPassword']);
 Route::get('reset/{token}', [AuthController::class, 'reset']);
 Route::post('reset/{token}', [AuthController::class, 'PostReset']);
+
+
+Route::group(['middleware' => \App\Http\Middleware\CommonMiddleware::class], function(){
+    Route::get('chat', [ChatController::class, 'chat']);
+    Route::post('submit_message', [ChatController::class, 'submit_message']);
+    Route::post('get_chat_windows', [ChatController::class, 'get_chat_windows']);
+    Route::post('get_chat_search_user', [ChatController::class, 'get_chat_search_user']);
+
+});
 
 Route::get('admin/account', [UserController::class, 'MyAccount']);
 Route::post('admin/account', [UserController::class, 'UpdateMyAccountAdmin']);

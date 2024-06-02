@@ -100,8 +100,8 @@
                            <tr>
                             <td>{{  $value->id  }}</td>
                             <td>
-                                @if(!empty($value->getProfile()))
-                                    <img src="{{ $value->getProfile() }}" style="height: 50px; width: 50px; border-radius: 50px;">
+                                @if(!empty($value->getProfileDirect()))
+                                    <img src="{{ $value->getProfileDirect() }}" style="height: 50px; width: 50px; border-radius: 50px;">
                                 @endif
                             </td>
 
@@ -134,10 +134,12 @@
                             Inactive
                             @endif
                             </td> -->
-                            <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
-                            <td style="min-width:200px;">
+                            <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
+                            <td style="min-width:270px;">
                             <a href="{{ url('admin/student/edit/'.$value->id )}}" class="btn btn-primary btn-sm">Edit</a>
                             <a href="{{ url('admin/student/delete/'.$value->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ url('chat?receiver_id='.base64_encode($value->id)) }}" class="btn btn-success btn-sm">Send Message</a>
+
                             </td>
 
                            </tr>
