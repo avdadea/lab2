@@ -53,3 +53,24 @@ form .flexSB input:nth-child(1) {
     width: 100%;
   }
 }
+
+.feedback-message {
+  position: fixed;
+  top: 20px; /* Adjust this value to position the message vertically */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 40px; /* Reduced padding */
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 14px;
+  z-index: 999;
+}
+
+.feedback-message.success {
+  background-color: #1eb2a6;
+}
+
+.feedback-message.error {
+  background-color: #dc3545;
+}
