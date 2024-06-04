@@ -256,7 +256,6 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     Route::get('student/my_exam_result', [ExaminationsController::class, 'myExamResult']);
    
     Route::get('student/my_exam_result/print', [ExaminationsController::class, 'myExamResultPrint']);
-
    
     Route::get('student/my_attendance', [AttendanceController::class, 'myAttendanceStudent']);
     

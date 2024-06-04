@@ -100,16 +100,7 @@
                 </tbody>
              </table>
 
-             <table class="margin-bottom" style="width: 100%;">
-                <tbody>
-                    <tr>
-                        <td width="19%">Total Score : </td>
-                        <td style="border-bottom: 1px solid; width: 50%;"></td>
-                        <td width="16%">Average: </td>
-                        <td style="border-bottom: 1px solid; width: 50%;"></td>
-                    </tr>
-                </tbody>
-             </table>
+
 
      </td>
    </tr>
@@ -132,38 +123,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="td text-container">LAB1</td>
-                        <td class="td">5</td>
-                        <td class="td">20</td>
-                        <td class="td">50</td>
-                        <td class="td">75</td>
-                        <td class="td"></td>
-                        <td class="td"></td>
-                        <td class="td"> 
-                            <span style="color: green;"><b>Passed</b></span> 
-                        </td>
-                    </tr>
+                    @php
+                    $total_score = 0;
+                    $full_marks = 0;  
+                    $result_validation = 0;                      
+                    @endphp
+                    @foreach($getExamMark as $exam)
+                    @php
+                    $total_score += $exam['total_score'];
+                    $full_marks += $exam['full_marks'];
+                    @endphp
 
-                
                     <tr>
-                        <td class="td text-container" colspan="1">
-                          <b>Grand Total: 441/600</b>
-                        </td>
-                        <td class="td" colspan="3">
-                          <b>Percentage: 73.5%</b>
-                        </td>
-                        <td class="td" colspan="1">
-                           <b>Grade: C</b>
-                        </td>
-                        <td class="td" colspan="3">
-                          <b>Result:
-                        <span style="color: green; ">Pass</span>
-                        </b>
+                        <td class="td" style="width: 300px" >{{ $exam['subject_name']}}</td>
+                        <td class="td">{{ $exam['class_work']}}</td>
+                        <td class="td">{{ $exam['home_work']}}</td>
+                        <td class="td">{{ $exam['exam']}}</td>
+                        <td class="td">{{ $exam['total_score']}}</td>
+                        <td class="td">{{ $exam['passing_mark']}}</td>
+                        <td class="td">{{ $exam['full_marks']}}</td>
+                        <td class="td"> 
+                            @if($exam['total_score'] >= $exam['passing_mark'])
+                                <span style="color: green;"><b>Passed</b></span> 
+                            @else
+                                @php
+                                $result_validation = 1;
+                                @endphp
+                                <span style="color: red;"><b>Failed</b></span>                         
+                            @endif
                         </td>
                     </tr>
-     
+                    @endforeach
+                    <tr>
+                        <td class="td" colspan="2"><b>Grand Total: {{$total_score}}/{{ $full_marks}} </b></td>
+                        @php
+                        $percentage = $full_marks > 0 ? ($total_score * 100) / $full_marks : 0;
+                        $getGrade = $full_marks > 0 ? App\Models\MarksGradeModel::getGrade($percentage) : 'N/A'; 
+                        @endphp
+                        <td class="td" colspan="2"><b>Percentage: {{ round($percentage, 2) }}%</b></td>
+                        <td class="td" colspan="2"><b>Grade: {{ $getGrade }}</b></td>
+                        <td  class="td" colspan="3"><b>Result: 
+                            @if($result_validation == 0) 
+                                <span style="color: green;"><b>Passed</b></span> 
+                            @else 
+                                <span style="color: red;"><b>Failed</b></span>
+                            @endif
+                        </b></td>
+                    </tr>
                 </tbody>
+
+
+
+
+
+
+
                 </table>
       </div>
 

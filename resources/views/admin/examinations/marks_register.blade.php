@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
-                                        <a href="{{ url('admin/examinations/mark_registers') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
+                                        <a href="{{ url('admin/examinations/marks_register') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
                                     </div>
                                 </div>
                             </div><!-- /.card-body -->
@@ -273,3 +273,4 @@
 
 </script>
 @endsection
+ 

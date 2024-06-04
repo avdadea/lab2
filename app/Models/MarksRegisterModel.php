@@ -25,7 +25,7 @@ class MarksRegisterModel extends Model
     }
 
 
-    static function getExamSubject($exam_id, $student_id)
+    public static function getExamSubject($exam_id, $student_id)
     {
         return MarksRegisterModel::select('marks_register.*', 'exam.name as exam_name', 'subject.name as subject_name')
                 ->join('exam', 'exam.id', '=', 'marks_register.exam_id')
