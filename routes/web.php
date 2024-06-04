@@ -254,6 +254,10 @@ Route::group(['middleware' => StudentMiddleware::class], function () {
     Route::post('student/change_password', [UserController::class, 'update_change_password']);   
     
     Route::get('student/my_exam_result', [ExaminationsController::class, 'myExamResult']);
+   
+    Route::get('student/my_exam_result/print', [ExaminationsController::class, 'myExamResultPrint']);
+
+   
     Route::get('student/my_attendance', [AttendanceController::class, 'myAttendanceStudent']);
     
     Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoardStudent']);
