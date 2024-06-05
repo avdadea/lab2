@@ -72,7 +72,7 @@
                                             ( {{$subject->subject_type}} : {{$subject->passing_mark}} / {{$subject->full_marks}})
                                         </th>
                                         @endforeach
-                                        <th>ACTION</th>
+                                        {{-- <th>ACTION</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -165,9 +165,9 @@
                                               $i++;
                                             @endphp
                                             @endforeach
-                                            <td style="min-width: 250px;">
-                                                <button type="submit" class="btn btn-success">Save</button>
-                                            @if(!empty($totalStudentMark))
+                                            {{-- <td style="min-width: 250px;">
+                                                <button type="submit" class="btn btn-success">Save</button> --}}
+                                            {{-- @if(!empty($totalStudentMark))
                                                 
                                                 <br>
                                                 <br>
@@ -195,7 +195,7 @@
                                                     Result : <span style="color:red; font-weight:bold;">Failed</span>
                                                 @endif
 
-                                            @endif
+                                            @endif --}}
 
 
 
