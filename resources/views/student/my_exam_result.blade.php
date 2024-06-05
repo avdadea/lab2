@@ -70,7 +70,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    <tr>
+                                    {{-- <tr>
                                         <td colspan="2"><b>Grand Total: {{$total_score}}/{{ $full_marks}} </b></td>
                                         @php
                                         $percentage = $full_marks > 0 ? ($total_score * 100) / $full_marks : 0;
@@ -85,7 +85,7 @@
                                                 <span style="color: red;"><b>Failed</b></span>
                                             @endif
                                         </b></td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>

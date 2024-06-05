@@ -70,7 +70,7 @@
                        </td>
                         </tr>
                         @endforeach
-                        <tr>
+                        {{-- <tr>
                         <td colspan="2"><b>Grand Total: {{$total_score}}/{{ $full_marks}} </b></td>
                         
                         <td colspan="2">
@@ -90,7 +90,7 @@
                             @endif
                             </b></td>
                      
-                        </tr>
+                        </tr> --}}
                         </tbody>
                     </table>
                 </div>
