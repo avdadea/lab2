@@ -46,8 +46,8 @@
                                     @endphp
                                     @foreach($value['subject'] as $exam)
                                     @php
-                                    $total_score += $exam['total_score'];
-                                    $full_marks += $exam['full_marks'];
+                                    $total_score =$total_score+ $exam['total_score'];
+                                    $full_marks = $full_marks + $exam['full_marks'];
                                     @endphp
 
                                     <tr>

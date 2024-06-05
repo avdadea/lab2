@@ -34,4 +34,6 @@ class MarksRegisterModel extends Model
                 ->where('marks_register.student_id', '=', $student_id)
                 ->get();
     }
+    
+    
 }

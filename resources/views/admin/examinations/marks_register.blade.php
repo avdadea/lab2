@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 @section('content')
 
 <div class="content-wrapper">
@@ -128,7 +128,9 @@
                                                 </div>
                                                 <div style="margin-bottom: 10px;">  
                                                     Exam 
-                                                    <input type="text"id="exam{{ $student->id }}{{ $subject->subject_id }}"  name="mark[{{ $i }}][exam]" style="width:200px;" placeholder="Enter Mark" value="{{ !empty($getMark->exam) ? $getMark->exam : '' }}" class="form-control">
+                                                    <input type="text"id="exam{{ $student->id }}{{ $subject->subject_id }}"  name="mark[{{ $i }}
+                                                    ][exam]" style="width:200px;" placeholder="Enter Mark" value="{{ !empty($getMark->exam) ? 
+                                                    $getMark->exam : '' }}" class="form-control">
                                                 </div>
 
                                                 <div style="margin-bottom:10px;"> 
