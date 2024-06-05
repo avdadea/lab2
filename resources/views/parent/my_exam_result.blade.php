@@ -70,7 +70,11 @@
                        </td>
                         </tr>
                         @endforeach
+<<<<<<< HEAD
                         <!-- <tr>
+=======
+                        {{-- <tr>
+>>>>>>> 00aa9d77ad6f4a8c5781ca741e3520ebe21ed7ea
                         <td colspan="2"><b>Grand Total: {{$total_score}}/{{ $full_marks}} </b></td>
                         
                         <td colspan="2">
@@ -90,7 +94,11 @@
                             @endif
                             </b></td>
                      
+<<<<<<< HEAD
                         </tr> -->
+=======
+                        </tr> --}}
+>>>>>>> 00aa9d77ad6f4a8c5781ca741e3520ebe21ed7ea
                         </tbody>
                     </table>
                 </div>
