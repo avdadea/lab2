@@ -28,24 +28,10 @@
                             </div>
                 
                             <div class="form-group col-md-2">
-                                <label>Notice Date From </label>
-                                <input type="date" class="form-control" name="notice_date_from" value="{{ Request::get('notice_date_from') }}" placeholder="Date">
+                                <label>Notice Date </label>
+                                <input type="date" class="form-control" name="notice_date" value="{{ Request::get('notice_date') }}" placeholder="Date">
                             </div>                  
 
-                            <div class="form-group col-md-2">
-                                <label>Notice Date To </label>
-                                <input type="date" class="form-control" name="notice_date_to" value="{{ Request::get('notice_date_to') }}" placeholder="Date">
-                            </div>
-             
-                            <div class="form-group col-md-2">
-                                <label>Publish Date From </label>
-                                <input type="date" class="form-control" name="publish_date_from" value="{{ Request::get('publish_date_from') }}" placeholder="Date">
-                            </div>                              
-
-                           <div class="form-group col-md-2">
-                                <label>Publish Date To </label>
-                                <input type="date" class="form-control" name="publish_date_to" value="{{ Request::get('publish_date_to') }}" placeholder="Date">
-                            </div>
        
                             
                             <div class="form-group col-md-2">
@@ -57,11 +43,11 @@
                                     <option {{ (Request::get('message_to')==4) ? 'selected' : '' }} value="4">Parent </option>
                                     
                                 </select>
-                            </div>                                                                  
+                            </div>         
 
                             <div class="form-group col-md-3">
-                                <button class="btn btn-primary" type="submit" style="margin-top: 10px;">Search</button>
-                                <a href="{{ url('admin/communicate/notice_board') }}" class="btn btn-success" style="margin-top: 10px;">Reset</a>
+                                <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
+                                <a href="{{ url('admin/teacher/list') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
                             </div>
                         </div>
                     </div><!-- /.card-body -->

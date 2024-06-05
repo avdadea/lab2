@@ -206,64 +206,75 @@ class ExaminationsController extends Controller
 
         
     }
+
+
     public function submit_marks_register(Request $request)
     {
-        $validation = 0;
-        if (!empty($request->mark)) {
-            foreach ($request->mark as $mark) {
-    
-                $getExamSchedule = ExamScheduleModel::getSingle($mark['id']);
-                if (!empty($getExamSchedule)) {
-                    $full_marks = $getExamSchedule->full_marks;
-                    $passing_mark = $getExamSchedule->passing_mark;
-    
-                    $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0;
-                    $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
-                    $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
-    
-                    $total_mark = $class_work + $home_work + $exam;
-                    if ($full_marks >= $total_mark) {
-    
-                        $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id, $request->exam_id, $request->class_id, $mark['subject_id']);
-                        if (!empty($getMark)) {
-                            $save = $getMark;
-                        } else {
-                            $save = new MarksRegisterModel;
-                            $save->created_by = Auth::user()->id;
-                        }
-                        $save->student_id = $request->student_id;
-                        $save->exam_id = $request->exam_id;
-                        $save->class_id = $request->class_id;
-                        $save->subject_id = $mark['subject_id'];
-                        $save->class_work = $class_work;
-                        $save->home_work = $home_work;
-                        $save->exam = $exam;
-                        $save->full_marks = $full_marks;
-                        $save->passing_mark = $passing_mark;
-    
-                        $save->save();
-                    } else {
-                        $validation = 1;
-                    }
-                } else {
-                    // Handle case where $getExamSchedule is empty
-                    // This could mean that the exam schedule doesn't exist for the provided ID
+       $validation = 0;
+        if (!empty($request->mark))
+        {
+          foreach ($request->mark as $mark)
+          {
+            $getExamSchedule = ExamScheduleModel::getSingle($mark['id']);
+   
+             $full_marks = $getExamSchedule->full_marks;
+             
+             $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0; 
+             $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
+             $exam = !empty($mark['exam']) ? $mark['exam']: 0;
+   
+             $full_marks = !empty($mark['full_marks']) ? $mark['full_marks'] : 0; 
+             $passing_mark = !empty($mark['passing_mark']) ? $mark['passing_mark'] : 0; 
+
+             $total_mark = $class_work+ $home_work + $exam;
+           
+             if($full_marks >= $total_mark)
+              {
+                 $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id, $request->exam_id, $request->class_id, $mark['subject_id']);
+             
+                 if(!empty($getMark))
+                 {
+                    $save = $getMark;
+                 }
+                else
+                {
+                $save = new MarksRegisterModel; 
+                $save->created_by= Auth::user()->id;
                 }
+
+
+                $save->student_id= $request->student_id;
+                $save->exam_id=$request->exam_id;
+                $save->class_id=$request->class_id;
+                $save->subject_id=$mark['subject_id'];
+                $save->class_work =$class_work;
+                $save->home_work = $home_work;
+                $save->exam = $exam;
+                
+                $save->full_marks = $full_marks;
+                $save->passing_mark = $passing_mark;
+                $save->save();
+                }
+                else
+                {
+                $validation=1;
+                }
+               
             }
+         }
+
+         if($validation==0)
+         {
+             $json['message'] = "Mark Register Successfully Saved";
+         }
+         else{
+            $json['message'] = "Mark Register Successfully Saved. Some subject mark greter than full mark";
+
+         }
+         echo json_encode($json);
         }
-        if ($validation == 0) {
-            $json['message'] = "Mark Register successfully saved";
-        } else {
-            $json['message'] = "Mark Register successfully saved! ALERT: Some subject's total mark is greater than the full mark!";
-        }
-    
-        echo json_encode($json);
-    }
-    
 
-
-
-
+                                
   public function single_submit_marks_register(Request $request)
   {
           $id =$request->id;

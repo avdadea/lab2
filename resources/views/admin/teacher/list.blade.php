@@ -43,27 +43,6 @@
                                 <label>Email</label>
                                 <input type="text" class="form-control" value="{{ Request::get('email') }}" name="email" placeholder="Email">
                             </div>
-
-                            <div class="form-group col-md-2">
-                            <label>Gender</label>
-                            <select class="form-control"  name="gender"> 
-                                <option value="">Select Gender</option>
-                                <option {{ (Request::get('gender') =='Male') ? 'selected' : '' }} value="Male">Male</option>
-                                <option {{ (Request::get('gender') =='Female') ? 'selected' : '' }}value="Female">Female</option>
-                                <option {{ (Request::get('gender') =='Other') ? 'selected' : '' }}value="Other">Other</option>
-                            </select>
-                          </div>
-
-                            <div class="form-group col-md-2">
-                                <label>Mobile Number</label>
-                                <input type="text" class="form-control" value="{{ Request::get('mobile_number') }}" name="mobile_number" placeholder="mobile_number">
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                <label>Address</label>
-                                <input type="text" class="form-control" value="{{ Request::get('address') }}" name="address" placeholder="Address">
-                            </div>
-
                             
                             <div class="form-group col-md-2">
                             <label>Status</label>
@@ -74,15 +53,7 @@
                             </select>
                           </div>
 
-                          <div class="form-group col-md-2">
-                                <label>Date Of Joining</label>
-                                <input type="date" class="form-control" name="admission_data" value="{{ Request::get('admission_data') }}">
-                            </div>
 
-                            <div class="form-group col-md-2">
-                                <label>Created Date</label>
-                                <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}" placeholder="">
-                            </div>
 
                             <div class="form-group col-md-3">
                                 <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>

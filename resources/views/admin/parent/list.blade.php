@@ -42,10 +42,6 @@
                                 <input type="text" class="form-control" value="{{ Request::get('email') }}" name="email" placeholder="Email">
                             </div>
 
-                            <div class="form-group col-md-2">
-                                <label>Date</label>
-                                <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}" placeholder="Date">
-                            </div>
 
                             <div class="form-group col-md-2">
                                 <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>

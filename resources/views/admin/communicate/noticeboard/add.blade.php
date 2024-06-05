@@ -30,11 +30,7 @@
                     <label>Notice Date</label>
                     <input type="date" class="form-control" name="notice_date" required>
                   </div>
-
-                  <div class="form-group">
-                    <label>Publish Date</label>
-                    <input type="date" class="form-control" name="publish_date" required>
-                  </div>         
+    
 
                   <div class="form-group">
                     <label style="display: block;">Message To</label>

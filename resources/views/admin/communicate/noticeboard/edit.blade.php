@@ -58,11 +58,7 @@
                                     <label>Notice Date</label>
                                     <input type="date" class="form-control" value="{{ $getRecord->notice_date }}" name="notice_date" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Publish Date</label>
-                                    <input type="date" class="form-control" value="{{ $getRecord->publish_date }}" name="publish_date" required>
-                                </div>
-
+               
                                 @php
                                 $message_to_student = $getRecord->getMessageToSingle($getRecord->id, 3);
                                 $message_to_parent = $getRecord->getMessageToSingle($getRecord->id, 4);

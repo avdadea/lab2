@@ -43,14 +43,12 @@
                                 <label>Email</label>
                                 <input type="text" class="form-control" value="{{ Request::get('email') }}" name="email" placeholder="Email">
                             </div>
+                            
                             <div class="form-group col-md-2">
                                 <label>Admission Number	</label>
-                                <input type="text" class="form-control" value="{{ Request::get('admission_number') }}" name="admission_number" placeholder="admission_number">
+                                <input type="text" class="form-control" value="{{ Request::get('admission_number') }}" name="admission_number" placeholder="Admission Number">
                             </div>
-                            <div class="form-group col-md-2">
-                                <label>Created Date</label>
-                                <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}" placeholder="">
-                            </div>
+                          
 
                             <div class="form-group col-md-2">
                                 <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
