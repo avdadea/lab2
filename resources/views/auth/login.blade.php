@@ -13,21 +13,47 @@
   <link rel="stylesheet" href="{{ url('public/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('public/dist/css/adminlte.min.css') }}">
+
+  <style>
+    .card-primary.card-outline {
+      border-top: 3px solid #1eb2a6;
+    }
+    .btn-primary {
+      background-color: #1eb2a6;
+      border-color: #1eb2a6;
+    }
+    .btn-primary:hover {
+      background-color: #17a19b;
+      border-color: #17a19b;
+    }
+    .input-group-text {
+      background-color: #1eb2a6;
+      border-color: #1eb2a6;
+      color: white;
+    }
+    .icheck-primary > input:checked + input[type=checkbox] + label::before, 
+    .icheck-primary > input:checked + input[type=radio] + label::before {
+      background-color: #1eb2a6;
+    }
+    .login-box a {
+      color: #1eb2a6;
+    }
+  </style>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="" class="h1"><b>Log In</b></a>
+      <a href="" class="h1"><b>The School Of Kosova</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
 
       @include('message')
-      <form action="{{url('login')}} " method="post">
-      {{ csrf_field()}}
+      <form action="{{url('login')}}" method="post">
+      {{ csrf_field() }}
         <div class="input-group mb-3">
           <input type="email" class="form-control" required name="email" placeholder="Email">
           <div class="input-group-append">
@@ -37,7 +63,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control"  name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -65,7 +91,7 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="{{ url('forgot-password')}}">I forgot my password</a>
+        <a href="{{ url('forgot-password') }}">I forgot my password</a>
       </p>
       
     </div>
@@ -76,9 +102,9 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="{{ url('public/plugins/jquery/jquery.min.js') }} "></script>
+<script src="{{ url('public/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ url('public/plugins/bootstrap/js/bootstrap.bundle.min.js') }} "></script>
+<script src="{{ url('public/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('public/dist/js/adminlte.min.js') }}"></script>
 </body>

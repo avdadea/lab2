@@ -12,12 +12,31 @@ use Auth;
 
 class SubjectController extends Controller
 {
-    public function list(){
-        $data['getRecord'] = SubjectModel::getRecord();
+    public function list(Request $request)
+    {
+        $query = SubjectModel::query();
+
+        // Filter by name if the name parameter is present
+        if ($request->has('name') && !empty($request->name)) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        // Filter by date if the date parameter is present
+        if ($request->has('date') && !empty($request->date)) {
+            $query->whereDate('created_at', $request->date);
+        }
+
+        $data['getRecord'] = $query->where('is_delete', 0)
+                                  ->orderBy('id', 'desc')
+                                  ->paginate(20);
+
         $data['header_title'] = "Subject List";
     
         return view('admin.subject.list', $data);
     }
+
+
+
 public function add(){
     $data['header_title'] = "Add Subject";
     
