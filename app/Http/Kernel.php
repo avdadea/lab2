@@ -24,6 +24,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\StudentMiddleware::class,
         \App\Http\Middleware\TeacherMiddleware::class,
         \App\Http\Middleware\ParentMiddleware::class,
+        \App\Http\Middleware\CorsMiddleware::class,
+
 
     ];
 

@@ -22,8 +22,6 @@ use App\Http\Controllers\ChatController;
 
 
 
-
-
 Route::get('/', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'AuthLogin']);
 Route::get('logout', [AuthController::class, 'logout']);
@@ -178,7 +176,7 @@ Route::group(['middleware' => AdminMiddleware::class], function (){
    
 
     Route::get('admin/attendance/student', [AttendanceController::class, 'AttendanceStudent']);
-    Route::post('admin/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
+    Route::post('admin/attendance/student/  ve', [AttendanceController::class, 'AttendanceStudentSubmit']);
 
     Route::get('admin/attendance/report', [AttendanceController::class, 'AttendanceReport']);
 
