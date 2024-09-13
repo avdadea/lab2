@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PlanetController;
 use App\Http\Controllers\SatelliteController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\PlayerController;
+
 
 
 Route::get('/user', function (Request $request) {
@@ -12,14 +15,30 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+
+
+Route::get('/players', [PlayerController::class, 'index']);
+Route::get('/players/{id}', [PlayerController::class, 'show']);
+Route::post('/players', [PlayerController::class, 'store']);
+Route::put('/players/{id}', [PlayerController::class, 'update']);
+Route::delete('/players/{id}', [PlayerController::class, 'destroy']);
+
+
+Route::get('/teams', [TeamController::class, 'index']);
+Route::get('/teams/{id}', [TeamController::class, 'show']);
+Route::post('/teams', [TeamController::class, 'store']);
+Route::put('/teams/{id}', [TeamController::class, 'update']);
+Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
+
+
+
+
+
 Route::get('/satellites', [SatelliteController::class, 'index']);
 Route::get('/satellites/{id}', [SatelliteController::class, 'show']);
 Route::post('/satellites', [SatelliteController::class, 'store']);
 Route::put('/satellites/{id}', [SatelliteController::class, 'update']);
 Route::delete('/satellites/{id}', [SatelliteController::class, 'destroy']);
-
-
-
 
 // List all planets (index method)
 Route::get('/planets', [PlanetController::class, 'index']);

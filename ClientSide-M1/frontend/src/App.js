@@ -13,9 +13,8 @@ import Home from "./components/home/Home";
 import CustomerManagement from "./components/customers/CustomerManagement.js";
 import PlanetManagement from "./components/planets/PlanetManagement.js";
 import SatelliteManagement from "./components/satellites/SatelliteManagement.js";
-
-
-
+import TeamManagement from "./components/teams/TeamManagement.js";
+import PlayerManagement from "./components/players/PlayerManagement.js";
 function App() {
   return (
     <Router>
@@ -31,8 +30,10 @@ function App() {
         <Route exact path='/customers' component={CustomerManagement} />
         <Route exact path='/planets' component={PlanetManagement} />
         <Route exact path='/satellites' component={SatelliteManagement} />
+        <Route exact path='/teams' component={TeamManagement} />
+        <Route exact path='/players' component={PlayerManagement} />
 
-
+        
       </Switch>
       <Footer />
     </Router>
