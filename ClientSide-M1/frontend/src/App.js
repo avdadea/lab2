@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
 import Header from "./components/common/header/Header";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Switch -> Routes
+
 import About from "./components/about/About";
 import CourseHome from "./components/allcourses/CourseHome";
 import Team from "./components/team/Team";
@@ -15,26 +16,44 @@ import PlanetManagement from "./components/planets/PlanetManagement.js";
 import SatelliteManagement from "./components/satellites/SatelliteManagement.js";
 import TeamManagement from "./components/teams/TeamManagement.js";
 import PlayerManagement from "./components/players/PlayerManagement.js";
+
+import Employees from './components/employees/Employees';
+import AddEmployeePage from "./components/employees/AddEmployeePage";
+import EditEmployeePage from "./components/employees/EditEmployeePage";
+
+import ContractsList from "./components/contracts/ContractsList";
+import AddContractPage from "./components/contracts/AddContractPage";
+import EditContractPage from "./components/contracts/EditContractPage";
+
+
+
 function App() {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/about' component={About} />
-        <Route exact path='/courses' component={CourseHome} />
-        <Route exact path='/team' component={Team} />
-        <Route exact path='/pricing' component={Pricing} />
-        <Route exact path='/journal' component={Blog} />
-        <Route exact path='/contact' component={Contact} />
-        <Route exact path='/customers' component={CustomerManagement} />
-        <Route exact path='/planets' component={PlanetManagement} />
-        <Route exact path='/satellites' component={SatelliteManagement} />
-        <Route exact path='/teams' component={TeamManagement} />
-        <Route exact path='/players' component={PlayerManagement} />
+      <Routes> {/* Switch -> Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/courses" element={<CourseHome />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/journal" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/customers" element={<CustomerManagement />} />
+        <Route path="/planets" element={<PlanetManagement />} />
+        <Route path="/satellites" element={<SatelliteManagement />} />
+        <Route path="/teams" element={<TeamManagement />} />
+        <Route path="/players" element={<PlayerManagement />} />
 
-        
-      </Switch>
+        <Route path="/employees" element={<Employees />} />
+        <Route path="/add-employee" element={<AddEmployeePage />} />
+        <Route path="/edit-employee/:id" element={<EditEmployeePage />} />
+
+        <Route path="/contracts" element={<ContractsList />} /> {/* Movie listing page */}
+        <Route path="/add-contract" element={<AddContractPage />} /> {/* Add Movie page */}
+        <Route path="/edit-contract/:id" element={<EditContractPage />} /> {/* Edit Movie page */}
+
+      </Routes>
       <Footer />
     </Router>
   );

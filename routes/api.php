@@ -7,6 +7,8 @@ use App\Http\Controllers\PlanetController;
 use App\Http\Controllers\SatelliteController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ContractController;
 
 
 
@@ -62,3 +64,7 @@ Route::get('/customers/{id}', [CustomerController::class, 'show']);
 Route::post('/customers', [CustomerController::class, 'store']);
 Route::put('/customers/{id}', [CustomerController::class, 'update']);
 Route::delete('/customers/{id}', [CustomerController::class, 'destroy']);
+
+Route::apiResource('employees', controller: EmployeeController::class);
+
+Route::apiResource('contracts', ContractController::class);
