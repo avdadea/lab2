@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const AddEmployeePage = () => {
+const AddContractPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [employeeId, setEmployeeId] = useState('');
@@ -65,4 +65,4 @@ const AddEmployeePage = () => {
   );
 };
 
-export default AddEmployeePage;
+export default AddContractPage;

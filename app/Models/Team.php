@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
-    use HasFactory;
-    protected $fillable = ['name'];
-
-
+    protected $fillable = ['name',];
     public function players()
     {
-        return $this->hasMany(Player::class, 'team_id', 'id');
+        return $this->hasMany(Player::class);
     }
+    use HasFactory;
 }

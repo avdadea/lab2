@@ -2,126 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Planet;
 use App\Models\Satellite;
 use Illuminate\Http\Request;
-use App\Http\Requests\SatelliteRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Validator;
 
-
+//movie==CONTRACT 
 class SatelliteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-  public function index(Request $request): JsonResponse
+   public function index(Request $request)
 {
-    $query = Satellite::query()
-        ->join('planets', 'satellites.planet_id', '=', 'planets.id')
-        ->select('satellites.*', 'planets.name as planet_name')
-        ->where('satellites.isDeleted', false);
+    // Get the filter query from the request
+    $name = $request->query('name', '');
+    $planet = $request->query('planet', '');
 
-    // Filter by satellite name
-    if ($request->has('name') && $request->input('name') !== '') {
-        $query->where('satellites.name', 'like', '%' . $request->input('name') . '%');
-    }
+    // Query contracts with employees, applying filters if provided
+    $satellites = Satellite::with(relations: 'planet')
+    
+        ->when($name, function ($query, $name) {
+            return $query->where('name', 'like', "%$name%");
+        })
+        ->when($planet, function ($query, $planet) {
+            return $query->whereHas('planet', function ($query) use ($planet) {
+                $query->where('name', 'like', "%$planet%")
+                      ->orWhere('type', 'like', "%$planet%");
+            });
+        })
+        ->get();
 
-    // Filter by planet name
-    if ($request->has('planet_name') && $request->input('planet_name') !== '') {
-        $query->where('planets.name', 'like', '%' . $request->input('planet_name') . '%');
-    }
-
-    $satellites = $query->paginate();
-
-    return response()->json([
-        'status' => true,
-        'message' => 'Satellites retrieved successfully',
-        'data' => $satellites
-    ], 200);
+    return response()->json($satellites);
 }
 
-    
-    
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(SatelliteRequest $request): JsonResponse
+
+    public function store(Request $request)
     {
-        $satellite = Satellite::create($request->validated());
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Satellite created successfully',
-            'data' => $satellite
-        ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): JsonResponse
-    {
-        $satellite = Satellite::find($id);
-
-        if (!$satellite) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Satellite not found'
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Satellite retrieved successfully',
-            'data' => $satellite
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'planet_id' => 'required|exists:planets,id', // Ensure the director exists
         ]);
+
+        $satellite = Satellite::create($validated);
+
+        return response()->json($satellite, 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(SatelliteRequest $request, $id): JsonResponse
+    public function show($id)
     {
-        $satellite = Satellite::find($id);
-
-        if (!$satellite) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Satellite not found'
-            ], 404);
-        }
-
-        $satellite->update($request->validated());
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Satellite updated successfully',
-            'data' => $satellite
-        ]);
+        return Satellite::with('planet')->findOrFail($id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'planet_id' => 'required|exists:planets,id', // Ensure the director exists
+       ]);
+
+        $satellite = Satellite::findOrFail($id);
+        $satellite->update($validated);
+
+        return response()->json($satellite);
+    }
 
     public function destroy($id)
     {
-        // Find the planet by its ID
         $satellite = Satellite::findOrFail($id);
-        
-        // Mark the planet as deleted by setting isDeleted to 1 (soft delete)
-        $satellite->isDeleted = 1;
-        
-        // Save the changes to the database
+        $satellite->is_deleted = true; // Set is_deleted to true (1)
         $satellite->save();
-        
-        // Return a JSON response indicating success
-        return response()->json([
-            'status' => true,
-            'message' => 'Satellite marked as deleted successfully',
-            'data' => $satellite
-        ], 200);
-    }
+
+    return response()->json(['message' => 'Satellite soft deleted successfully.'], 200);
+  }
 }
-
-

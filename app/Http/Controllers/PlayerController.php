@@ -3,156 +3,82 @@
 namespace App\Http\Controllers;
 
 use App\Models\Player;
+use App\Models\Team;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Validator;
 
-
+//movie==CONTRACT 
 class PlayerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-  public function index(Request $request): JsonResponse
+   public function index(Request $request)
 {
-    $query = Player::query();
-        // ->join('teams', 'players.team_id', '=', 'teams.id')
-        // ->select('players.*', 'teams.name as team_name')
-        // ->where('players.isDeleted', false);
+    // Get the filter query from the request
+    $name = $request->query('name', '');
+    $number = $request->query('number', '');
+    $birth_year = $request->query('birth_year', '');
+    $team = $request->query('team', '');
 
-    // Filter by players name
-    // if ($request->has('name') && $request->input('name') !== '') {
-    //     $query->where('players.name', 'like', '%' . $request->input('name') . '%');
-    // }
+    // Query contracts with employees, applying filters if provided
+    $players = Player::with(relations: 'team')
+    
+        ->when($name, function ($query, $name) {
+            return $query->where('name', 'like', "%$name%");
+        })
+        ->when($number, function ($query, $number) {
+            return $query->where('number', $number);
+        })
+        ->when($birth_year, function ($query, $birth_year) {
+            return $query->where('birth_year', $birth_year);
+        })
+        ->when($team, function ($query, $team) {
+            return $query->whereHas('team', function ($query) use ($team) {
+                $query->where('name', 'like', "%$team%");
+            });
+        })
+        ->get();
 
-    // // Filter by planet name
-    // if ($request->has('team_name') && $request->input('team_name') !== '') {d
-    //     $query->where('teams.name', 'like', '%' . $request->input('team_name') . '%');
-    // }
-
-    $players = $query->paginate();
-
-    return response()->json([
-        'status' => true,
-        'message' => 'Players retrieved successfully',
-        'data' => $players
-    ], 200);
+    return response()->json($players);
 }
 
-    
-    
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): JsonResponse
+
+    public function store(Request $request)
     {
-        // Validate the incoming request data
-        $validator = Validator::make($request->all(), [
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'number'=>'required|integer',
-            'birthYear' => 'required|integer',
-            'team_id' => 'required|integer|exists:teams,id',
-            // Add other fields as needed
+            'number' => 'required|integer|min:0',
+            'birth_year' => 'required|integer|min:1900|max:'.date('Y'),
+            'team_id' => 'required|exists:teams,id', // Ensure the team exists
         ]);
-    
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-    
-        // Create the player with validated data
-        $player = Player::create($validator->validated());
-    
-        return response()->json([
-            'status' => true,
-            'message' => 'Player created successfully',
-            'data' => $player
-        ], 201);
-    }
-    
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): JsonResponse
-    {
-        $player = Player::find($id);
 
-        if (!$player) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Player not found'
-            ], 404);
-        }
+        $player = Player::create($validated);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Player retrieved successfully',
-            'data' => $player
-        ]);
+        return response()->json($player, 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): JsonResponse
+    public function show($id)
     {
-        // Validate the incoming request data
-        $validator = Validator::make($request->all(), [
+        return Player::with('team')->findOrFail($id);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'number' => 'required|integer',
-            'birthYear' => 'required|integer',
-            'team_id' => 'required|integer|exists:teams,id',
-            // Add other fields as needed
-        ]);
-    
-        // Check if validation fails
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-    
-        // Find the player by ID
-        $player = Player::find($id);
-    
-        // If player not found, return 404 response
-        if (!$player) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Player not found'
-            ], 404);
-        }
-    
-        // Update the player with validated data
-        $player->update($validator->validated());
-    
-        // Return success response
-        return response()->json([
-            'status' => true,
-            'message' => 'Player updated successfully',
-            'data' => $player
-        ]);
-    }
-    
-    /**
-     * Remove the specified resource from storage.
-     */
+            'number' => 'required|integer|min:0',
+            'birth_year' => 'required|integer|min:1900|max:'.date('Y'),
+            'team_id' => 'required|exists:teams,id', // Ensure the team exists
+       ]);
 
-     public function destroy($id)
+        $player = Player::findOrFail($id);
+        $player->update($validated);
+
+        return response()->json($player);
+    }
+
+    public function destroy($id)
     {
         $player = Player::findOrFail($id);
         $player->delete();
-        
-        return response()->json([
-            'status' => true,
-            'message' => 'player deleted successfully'
-        ], 204);
+
+        return response()->json(null, 204);
     }
 }
-
-

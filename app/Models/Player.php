@@ -7,17 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
-    use HasFactory;
-
-    protected $fillable = ['name', 'number','birthYear', 'team_id'];
-
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function teams()
+    protected $fillable = ['name', 'number','birth_year', 'team_id'];
+   
+    public function team()
     {
-        return $this->belongsTo(\App\Models\Team::class, 'team_id', 'id');
+        return $this->belongsTo(Team::class);
     }
-    
+    use HasFactory;
 }

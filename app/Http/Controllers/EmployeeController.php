@@ -19,7 +19,7 @@ class EmployeeController extends Controller
             ->when($name, function ($query, $name) {
                 return $query->where('name', 'like', "%{$name}%");
             })
-            ->when($surname, function ($query, $surname) {
+            ->when($surname, function (self $query, $surname) {
                 return $query->where('surname', 'like', "%{$surname}%");
             })
             ->get();
